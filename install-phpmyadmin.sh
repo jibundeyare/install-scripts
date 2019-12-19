@@ -1,4 +1,10 @@
-username="popschool"
+http_auth_username="popschool"
+
+# create http authentication password
+if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
+	echo "HTTP authentication password for login '$http_auth_username'"
+	htpasswd -c ~/htpasswd.login $http_auth_username
+fi
 
 # install phpmyadmin
 sudo apt install -y phpmyadmin
@@ -16,10 +22,9 @@ fi
 sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
 sudo a2enconf phpmyadmin.conf
 
-# create http authentication password
+# enable http authentication password
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
-	echo "HTTP authentication password for $username"
-	sudo htpasswd -c /etc/phpmyadmin/htpasswd.login $username
+	sudo mv ~/htpasswd.login /etc/phpmyadmin/htpasswd.login
 fi
 
 # add http authentication
@@ -39,4 +44,5 @@ fi
 
 # restart apache2
 sudo systemctl restart apache2.service
+
 
