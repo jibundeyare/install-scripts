@@ -1,10 +1,7 @@
-# @todo move editing of /etc/hosts to another script
+#!/bin/bash
 
+# settings
 vhost_directory="foo"
-local_domain="foo.local"
-
-# remove domain name from /etc/hosts file
-sudo sed -i "s/ $local_domain//" /etc/hosts
 
 # get timestamp
 timestamp=$(date "+%Y%m%d%H%M%S")

@@ -1,6 +1,7 @@
-# @todo move editing of /etc/hosts to another script
+#!/bin/bash
 
-username="popschool"
+# settings
+username="johndoe"
 projects_directory="projects"
 vhost_directory="foo"
 local_domain="foo.local"
@@ -62,5 +63,3 @@ else
 	sudo cp /etc/hosts /etc/hosts-$timestamp
 fi
 
-# add domain name to /etc/hosts file
-sudo sed -i "s/\\(127\\.0\\.0\\.1\\s\\+.*\\)/\\1 $local_domain/" /etc/hosts

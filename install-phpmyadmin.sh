@@ -1,4 +1,12 @@
-http_auth_username="popschool"
+#!/bin/bash
+
+# this script installs phpmyadmin
+# the script adds http authentication to phpmyadmin
+# it will ask you for first for an http authentication password
+# and it will ask you for the phpmyadmin account password later
+
+# settings
+http_auth_username="johndoe"
 
 # create http authentication password
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
@@ -44,5 +52,4 @@ fi
 
 # restart apache2
 sudo systemctl restart apache2.service
-
 

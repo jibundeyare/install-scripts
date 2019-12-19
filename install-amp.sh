@@ -1,8 +1,15 @@
-# this script installs apache2, mariadb and php7
-# the script modifies the default configuration of apache2 and php7
-# the script does not add any new vhost or php-fpm pool, instead it modifies the default vhost and php-fpm pool
+#!/bin/bash
 
-username="popschool"
+# this script installs apache2, mariadb, php7 and php-fpm
+# the script modifies the default configuration of apache2 and php7
+# the script modifies the default vhost and php-fpm pool :
+# - the www-data is replaced with the $username
+# - the user's $projects_directory is whitelisted
+# - the default vhost is set to $projects_directory/$default_vhost_directory
+# - the default vhost is set to work with php-fpm
+
+# settings
+username="johndoe"
 projects_directory="projects"
 default_vhost_directory="www"
 
