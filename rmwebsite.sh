@@ -3,12 +3,6 @@
 # settings
 vhost_directory="foo"
 
-# get timestamp
-timestamp=$(date "+%Y%m%d%H%M%S")
-
-# backup /etc/hosts file with a timestamp
-sudo cp /etc/hosts /etc/hosts-$timestamp
-
 # disable vhost
 sudo a2dissite $vhost_directory
 

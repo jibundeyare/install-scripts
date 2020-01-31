@@ -51,15 +51,3 @@ sudo a2ensite $vhost_directory.conf
 # restart apache2
 sudo systemctl restart apache2.service
 
-# backup /etc/hosts file
-if [ ! -f /etc/hosts.orig ]; then
-	# backup original hosts file
-	sudo cp /etc/hosts /etc/hosts.orig
-else
-	# get timestamp
-	timestamp=$(date "+%Y%m%d%H%M%S")
-
-	# backup /etc/hosts file with a timestamp
-	sudo cp /etc/hosts /etc/hosts-$timestamp
-fi
-
