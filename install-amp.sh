@@ -190,7 +190,7 @@ sudo sed -i "s/;php_admin_value\[error_log\] = \/var\/log\/fpm-php.www.log/php_a
 
 # backup current config
 if [ ! -f /etc/apache2/sites-available/000-default.conf.orig ]; then
-	sudo cp /etc/apache2/sites-available/000-default.conf 	/etc/apache2/sites-available/000-default.conf.orig
+	sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
 fi
 
 # set document root for default virtual host

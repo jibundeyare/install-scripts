@@ -38,7 +38,7 @@ fi
 # add http authentication
 # AuthType Basic
 # AuthName "phpMyAdmin"
-# AuthUserFile /etc/phpmyadmin/htpasswd
+# AuthUserFile /etc/phpmyadmin/htpasswd.login
 # Require valid-user
 #
 count=$(grep "AuthUserFile /etc/phpmyadmin/htpasswd.login" /etc/phpmyadmin/apache.conf | wc -l)
