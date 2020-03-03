@@ -1,5 +1,7 @@
 # Install scripts
 
+Install scripts for Debian 9 Stretch.
+
 ## Description
 
 The scripts in this repo help doing the follwing tasks:
