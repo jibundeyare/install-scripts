@@ -1,12 +1,50 @@
 #!/bin/bash
 
-# this script installs phpmyadmin
-# the script adds http authentication to phpmyadmin
-# it will ask you for first for an http authentication password
-# and it will ask you for the phpmyadmin account password later
+function usage {
+	this=$(basename $0)
+	cat <<-EOT
+	Usage: $this [HTTP_AUTH_USERNAME]
 
-# settings
-http_auth_username="johndoe"
+	This script installs PHPMyAdmin and configures the "phpmyadmin" mysql account.
+	It also adds HTTP authentication to PHPMyAdmin.
+	It will first ask you for an HTTP authentication password and then it will ask you for the PHPMyAdmin account password later.
+
+	If you need to change the HTTP authentication password, you can use "reset-pma-http-auth-password.sh" script.
+
+	HTTP_AUTH_USERNAME can be any user name, your linux user name or another one.
+
+	Example: $this johndoe
+
+	This command will:
+
+	- ask for a password for "johndoe"
+	- create an HTTP authentication with user name "johndoe" and the specified password
+	- install PHPMyAdmin
+	- ask for a password for the "phpmyadmin" mysql account
+	- and do some other things (see the source)
+	EOT
+}
+
+if [ $# -lt 1 ]; then
+	usage
+	exit 1
+else
+	# settings
+	http_auth_username="$1"
+
+	cat <<-EOT
+	HTTP_AUTH_USERNAME: $http_auth_username
+
+	EOT
+
+	read -p "Press [y/Y] to confirm: " -n 1 answer
+	echo ""
+
+	if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+		echo "canceled"
+		exit
+	fi
+fi
 
 # create http authentication password
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then

@@ -1,7 +1,44 @@
 #!/bin/bash
 
-# settings
-local_domain="foo.local"
+function usage {
+	this=$(basename $0)
+	cat <<-EOT
+	Usage: $this [LOCAL_DOMAIN]
+
+	This script adds a local domain name to the "/etc/hosts" file.
+
+	LOCAL_DOMAIN is the domain name you will be using in your web browser to access a particular project.
+
+	Example: $this foo.local
+
+	This command will:
+
+	- create a backup of the "/etc/hosts" file with a timestamp
+	- add the "foo.local" local domain to the "/etc/hosts"
+	- and do some other things (see the source)
+	EOT
+}
+
+if [ $# -lt 1 ]; then
+	usage
+	exit 1
+else
+	# settings
+	local_domain="$1"
+
+	cat <<-EOT
+	LOCAL_DOMAIN: $local_domain
+
+	EOT
+
+	read -p "Press [y/Y] to confirm: " -n 1 answer
+	echo ""
+
+	if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+		echo "canceled"
+		exit
+	fi
+fi
 
 # backup /etc/hosts file
 if [ ! -f /etc/hosts.orig ]; then

@@ -1,23 +1,47 @@
 #!/bin/bash
 
-# this script resets the http authentication password
+function usage {
+	this=$(basename $0)
+	cat <<-EOT
+	Usage: $this [HTTP_AUTH_USERNAME]
 
-# settings
-http_auth_username="johndoe"
+	This script resets the HTTP authentication password that was set for PHPMyAdmin.
+	It will ask you for an HTTP authentication password.
+	Previous user name and password combination will be overwritten.
 
-# ask user confirmation
-echo "Resetting the PhpMyAdmin HTTP authentication password"
-read -p "Are tou sure you want to continue ? [y/N]: " answer
+	HTTP_AUTH_USERNAME can be any user name, your linux user name or another one.
 
-continue_operations="n"
+	Example: $this johndoe
 
-if [ "$answer" == "Y" ] || [ "$answer" == "y" ]; then
-	continue_operations="y"
-fi
+	This command will:
 
-if [ $continue_operations == "n" ]; then
-	echo "Canceled"
-	exit
+	- ask for a password for "johndoe"
+	- create an HTTP authentication with user name "johndoe" and the specified password
+	- and do some other things (see the source)
+	EOT
+}
+
+if [ $# -lt 1 ]; then
+	usage
+	exit 1
+else
+	# settings
+	http_auth_username="$1"
+
+	cat <<-EOT
+	HTTP_AUTH_USERNAME: $http_auth_username
+
+	This will reset existing HTTP authentication user name and password.
+
+	EOT
+
+	read -p "Press [y/Y] to confirm: " -n 1 answer
+	echo ""
+
+	if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+		echo "canceled"
+		exit
+	fi
 fi
 
 # create http authentication password
