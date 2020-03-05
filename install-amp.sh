@@ -69,7 +69,7 @@ sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.3/a
 sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.3/cli/php.ini
 sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.3/fpm/php.ini
 
-# configure form upload max data size 
+# configure form upload max data size
 # upload_max_filesize = 2M
 # =>
 # upload_max_filesize = 32M
@@ -77,7 +77,7 @@ sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.3
 sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.3/cli/php.ini
 sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.3/fpm/php.ini
 
-# configure form upload max data size 
+# configure form upload max data size
 # post_max_size = 8M
 # =>
 # post_max_size = 32M
@@ -122,9 +122,9 @@ sudo sed -i "s/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=$usernam
 
 # whitelist /home/popschool/projects document root directory
 # <Directory /home/popschool/projects/>
-# 	Options Indexes FollowSymLinks
-# 	AllowOverride All
-# 	Require all granted
+#	Options Indexes FollowSymLinks
+#	AllowOverride All
+#	Require all granted
 # </Directory>
 #
 count=$(grep "/home/$username/$projects_directory" /etc/apache2/apache2.conf | wc -l)
@@ -201,13 +201,13 @@ sudo sed -i "s/DocumentRoot \/var\/www\/html/DocumentRoot \/home\/$username\/$pr
 
 # add socket config to default virtual host
 #
-# 	<IfModule !mod_php7.c>
-# 	<IfModule proxy_fcgi_module>
-# 	<FilesMatch ".+\.ph(ar|p|tml)$">
-# 		SetHandler "proxy:unix:/run/php/php7.3-fpm.www.sock|fcgi://localhost"
-# 	</FilesMatch>
-# 	</IfModule>
-# 	</IfModule>
+#	<IfModule !mod_php7.c>
+#	<IfModule proxy_fcgi_module>
+#	<FilesMatch ".+\.ph(ar|p|tml)$">
+#		SetHandler "proxy:unix:/run/php/php7.3-fpm.www.sock|fcgi://localhost"
+#	</FilesMatch>
+#	</IfModule>
+#	</IfModule>
 count=$(grep "/run/php/php7.3-fpm.$default_vhost_directory.sock" /etc/apache2/sites-available/000-default.conf | wc -l)
 if [ $count -eq 0 ]; then
 	sudo sed -i "29i\\\\" /etc/apache2/sites-available/000-default.conf
