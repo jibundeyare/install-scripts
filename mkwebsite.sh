@@ -19,10 +19,10 @@ if [ -d /home/$username/$projects_directory/$vhost_directory ]; then
 	exit
 fi
 
-# create default virtual host directory
+# create virtual host directory
 mkdir -p /home/$username/$projects_directory/$vhost_directory
 
-# create default virtual host home page
+# create a default home page
 echo "<?php" > /home/$username/$projects_directory/$vhost_directory/index.php
 echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/index.php
 
