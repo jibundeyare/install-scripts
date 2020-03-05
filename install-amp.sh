@@ -1,17 +1,57 @@
 #!/bin/bash
 
-# this script installs apache2, mariadb, php7 and php-fpm
-# the script modifies the default configuration of apache2 and php7
-# the script modifies the default vhost and php-fpm pool :
-# - the www-data is replaced with the $username
-# - the user's $projects_directory is whitelisted
-# - the default vhost is set to $projects_directory/$default_vhost_directory
-# - the default vhost is set to work with php-fpm
+function usage {
+	this=$(basename $0)
+	cat <<-EOT
+	Usage: $this [USERNAME] [PROJECTS_DIRECTORY] [DEFAULT_VHOST_DIRECTORY]
 
-# settings
-username="johndoe"
-projects_directory="projects"
-default_vhost_directory="www"
+	This script installs apache2, mariadb, php7 and php-fpm.
+	The script modifies the default configuration of apache2 and php7.
+	The script modifies the default vhost and php-fpm pool:
+	- the "www-data" is replaced with the USERNAME value
+	- the user's PROJECTS_DIRECTORY is whitelisted
+	- the default vhost is set to PROJECTS_DIRECTORY/DEFAULT_VHOST_DIRECTORY
+	- the default vhost is set to work with php-fpm
+
+	USERNAME should be your username.
+	PROJECTS_DIRECTORY is the directory in which you'll store all your projects.
+	DEFAULT_VHOST_DIRECTORY is the directory containing the default website.
+
+	Example: $this johndoe projects www
+
+	This command will :
+
+	- set "johndoe" as the user for apache2 and php-fpm.
+	- create the directory "/home/johndoe/projects"
+	- create the directory "/home/johndoe/projects/www"
+	- and do some other things (see the source)
+	EOT
+}
+
+if [ $# -lt 3 ]; then
+	usage
+	exit 1
+else
+	# settings
+	username="$1"
+	projects_directory="$2"
+	default_vhost_directory="$3"
+
+	cat <<-EOT
+	USERNAME: $username
+	PROJECTS_DIRECTORY: $projects_directory
+	DEFAULT_VHOST_DIRECTORY: $default_vhost_directory
+
+	EOT
+
+	read -p "Press [y/Y] to confirm: " -n 1 answer
+	echo ""
+
+	if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+		echo "canceled"
+		exit
+	fi
+fi
 
 # add php 7.3 repo
 # wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
