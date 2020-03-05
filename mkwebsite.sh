@@ -23,8 +23,17 @@ fi
 mkdir -p /home/$username/$projects_directory/$vhost_directory
 
 # create a default home page
-echo "<?php" > /home/$username/$projects_directory/$vhost_directory/index.php
-echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/index.php
+if [ "$vhost_template" == "template-vhost-symfony.conf" ]; then
+	# create "public" document root directory
+	mkdir -p /home/$username/$projects_directory/$vhost_directory/public
+	# create the default home page in the "public" directory
+	echo "<?php" > /home/$username/$projects_directory/$vhost_directory/public/index.php
+	echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/public/index.php
+else
+	# create the default home page in the document root directory
+	echo "<?php" > /home/$username/$projects_directory/$vhost_directory/index.php
+	echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/index.php
+fi
 
 # copy template-pool.conf to php fpm pool directory
 sudo cp template-pool.conf /etc/php/7.3/fpm/pool.d/$vhost_directory.conf
