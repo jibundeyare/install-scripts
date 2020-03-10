@@ -17,7 +17,6 @@ function usage {
 
 	- ask for a password for "johndoe"
 	- create an HTTP authentication with user name "johndoe" and the specified password
-	- and do some other things (see the source)
 	EOT
 }
 

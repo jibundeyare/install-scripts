@@ -21,7 +21,6 @@ function usage {
 	- create an HTTP authentication with user name "johndoe" and the specified password
 	- install PHPMyAdmin
 	- ask for a password for the "phpmyadmin" mysql account
-	- and do some other things (see the source)
 	EOT
 }
 

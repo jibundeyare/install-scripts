@@ -31,7 +31,6 @@ function usage {
 	- create a default PHP home page in the "/home/johndoe/projects/foo" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
 	- create the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/foo.conf"
-	- and do some other things (see the source)
 
 	Example 2: $this johndoe projects example example.local template-vhost-symfony.conf
 
@@ -42,7 +41,6 @@ function usage {
 	- create a default PHP home page in the "/home/johndoe/projects/example/public" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/example.conf"
 	- create the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/example.conf"
-	- and do some other things (see the source)
 	EOT
 }
 

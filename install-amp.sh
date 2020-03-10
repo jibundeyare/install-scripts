@@ -24,7 +24,6 @@ function usage {
 	- set "johndoe" as the user for apache2 and php-fpm.
 	- create the directory "/home/johndoe/projects"
 	- create the directory "/home/johndoe/projects/www"
-	- and do some other things (see the source)
 	EOT
 }
 

@@ -15,7 +15,6 @@ function usage {
 
 	- create a backup of the "/etc/hosts" file with a timestamp
 	- remove the "foo.local" local domain from the "/etc/hosts"
-	- and do some other things (see the source)
 	EOT
 }
 

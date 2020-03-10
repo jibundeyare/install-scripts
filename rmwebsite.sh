@@ -17,7 +17,6 @@ function usage {
 
 	- delete the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
 	- delete the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/foo.conf"
-	- and do some other things (see the source)
 	EOT
 }
 
