@@ -16,7 +16,7 @@ function usage {
 	This command will:
 
 	- delete the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
-	- delete the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/foo.conf"
+	- delete the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
 	EOT
 }
 
@@ -51,7 +51,7 @@ sudo rm /etc/apache2/sites-available/$vhost_directory.conf
 sudo systemctl restart apache2.service
 
 # remove pool config from php fpm pool directory
-sudo rm /etc/php/7.3/fpm/pool.d/$vhost_directory.conf
+sudo rm /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
-sudo systemctl restart php7.3-fpm.service
+sudo systemctl restart php7.4-fpm.service

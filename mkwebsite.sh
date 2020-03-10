@@ -30,7 +30,7 @@ function usage {
 	- create the project directory "/home/johndoe/projects/foo"
 	- create a default PHP home page in the "/home/johndoe/projects/foo" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
-	- create the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/foo.conf"
+	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
 
 	Example 2: $this johndoe projects example example.local template-vhost-symfony.conf
 
@@ -40,7 +40,7 @@ function usage {
 	- create the document root directory "/home/johndoe/projects/example/public"
 	- create a default PHP home page in the "/home/johndoe/projects/example/public" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/example.conf"
-	- create the PHP-FPM pool file "/etc/php/7.3/fpm/pool.d/example.conf"
+	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
 	EOT
 }
 
@@ -110,14 +110,14 @@ else
 fi
 
 # copy template-pool.conf to php fpm pool directory
-sudo cp template-pool.conf /etc/php/7.3/fpm/pool.d/$vhost_directory.conf
+sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # edit file to match selected username and vhost directory
-sudo sed -i "s/{username}/$username/" /etc/php/7.3/fpm/pool.d/$vhost_directory.conf
-sudo sed -i "s/{vhost_directory}/$vhost_directory/" /etc/php/7.3/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{username}/$username/" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$vhost_directory/" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
-sudo systemctl restart php7.3-fpm.service
+sudo systemctl restart php7.4-fpm.service
 
 # copy template-vhost.conf to apache2 available vhost directory
 sudo cp $vhost_template /etc/apache2/sites-available/$vhost_directory.conf
