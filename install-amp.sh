@@ -56,7 +56,7 @@ fi
 # wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 wget -O php.gpg https://packages.sury.org/php/apt.gpg
 sudo mv php.gpg /etc/apt/trusted.gpg.d/
-echo "deb https://packages.sury.org/php/ buster main" | sudo tee /etc/apt/sources.list.d/php.list
+echo "deb https://packages.sury.org/php/ stretch main" | sudo tee /etc/apt/sources.list.d/php.list
 
 # update debian
 sudo apt update

@@ -1,6 +1,6 @@
 # Install scripts
 
-Install and helper scripts for Debian 10 Buster.
+Install and helper scripts for Debian 9 Buster.
 
 ## Description
 
@@ -37,7 +37,7 @@ These scripts come with no warranty at all.
 
 ## Prerequisites
 
-These scripts are meant to work with Debian 10 Buster but have not been thouroughly tested yet.
+These scripts are meant to work with Debian 9 Stretch.
 
 ## Usage
 
