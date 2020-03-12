@@ -186,6 +186,17 @@ if [ "$default_vhost_directory" != "www" ]; then
 	sudo mv /etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 fi
 
+# set pool
+# 'www'
+# =>
+# '$default_vhost_directory'
+sudo sed -i "s/'www'/'$default_vhost_directory'/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+
+# [www]
+# =>
+# [$default_vhost_directory]
+sudo sed -i "s/\[www\]/[$default_vhost_directory]/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+
 # set user
 # user = www-data
 # =>
