@@ -80,14 +80,19 @@ sudo apt install -y imagemagick libapache2-mod-php7.4 php7.4 php7.4-cli php7.4-c
 
 # backup current config
 if [ ! -f /etc/php/7.4/apache2/php.ini.orig ]; then
-	sudo cp /etc/php/7.4/apache2/php.ini /etc/php/7.4/apache2/php.ini.orig
+	sudo mv /etc/php/7.4/apache2/php.ini /etc/php/7.4/apache2/php.ini.orig
 fi
 if [ ! -f /etc/php/7.4/cli/php.ini.orig ]; then
-	sudo cp /etc/php/7.4/cli/php.ini /etc/php/7.4/cli/php.ini.orig
+	sudo mv /etc/php/7.4/cli/php.ini /etc/php/7.4/cli/php.ini.orig
 fi
 if [ ! -f /etc/php/7.4/fpm/php.ini.orig ]; then
-	sudo cp /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.ini.orig
+	sudo mv /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.ini.orig
 fi
+
+# restore original files
+sudo cp /etc/php/7.4/apache2/php.ini.orig /etc/php/7.4/apache2/php.ini
+sudo cp /etc/php/7.4/cli/php.ini.orig /etc/php/7.4/cli/php.ini
+sudo cp /etc/php/7.4/fpm/php.ini.orig /etc/php/7.4/fpm/php.ini
 
 # configure time zone
 # ;date.timezone =
@@ -138,11 +143,15 @@ sudo a2enmod proxy_fcgi
 
 # backup current config
 if [ ! -f /etc/apache2/envvars.orig ]; then
-	sudo cp /etc/apache2/envvars /etc/apache2/envvars.orig
+	sudo mv /etc/apache2/envvars /etc/apache2/envvars.orig
 fi
 if [ ! -f /etc/apache2/apache2.conf.orig ]; then
-	sudo cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
+	sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
 fi
+
+# restore original files
+sudo cp /etc/apache2/envvars.orig /etc/apache2/envvars
+sudo cp /etc/apache2/apache2.conf.orig /etc/apache2/apache2.conf
 
 # set user
 # export APACHE_RUN_USER=www-data
@@ -176,15 +185,12 @@ fi
 # configure php fpm
 
 # backup current config
-# (copy original file to /root directory)
-if [ ! -f /root/php-7.4-fpm-pool.d-www.conf.orig ]; then
-	sudo cp /etc/php/7.4/fpm/pool.d/www.conf /root/php-7.4-fpm-pool.d-www.conf.orig
+if [ ! -f /etc/php/7.4/fpm/pool.d/www.conf.orig ]; then
+	sudo mv /etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf.orig
 fi
 
-# rename default pool using default vhost directory name
-if [ "$default_vhost_directory" != "www" ]; then
-	sudo mv /etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-fi
+# restore original file using default vhost directory name
+sudo cp /etc/php/7.4/fpm/pool.d/www.conf.orig /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
 # set pool
 # 'www'
@@ -239,6 +245,9 @@ sudo sed -i "s/;php_admin_value\[error_log\] = \/var\/log\/fpm-php.www.log/php_a
 if [ ! -f /etc/apache2/sites-available/000-default.conf.orig ]; then
 	sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
 fi
+
+# restore original file
+sudo cp /etc/apache2/sites-available/000-default.conf.orig /etc/apache2/sites-available/000-default.conf
 
 # set document root for default virtual host
 # DocumentRoot /var/www/html
