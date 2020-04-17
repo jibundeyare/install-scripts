@@ -59,7 +59,7 @@ else
 
 		if [ ! -f $vhost_template ]; then
 			echo "error: the vhost template file '$vhost_template' does not exist"
-			exit
+			exit 1
 		fi
 	else
 		vhost_template="template-vhost.conf"
@@ -85,12 +85,12 @@ fi
 
 if [ ! -d /home/$username/$projects_directory ]; then
 	echo "error: the projects directory '/home/$username/$projects_directory' does not exist"
-	exit
+	exit 1
 fi
 
 if [ -d /home/$username/$projects_directory/$vhost_directory ]; then
 	echo "error: vhost directory '/home/$username/$projects_directory/$vhost_directory' already exists"
-	exit
+	exit 1
 fi
 
 # create virtual host directory
