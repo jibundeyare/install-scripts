@@ -1,13 +1,16 @@
 #!/bin/bash
 
+# @todo replace HTTP_AUTH_USERNAME param with DBA_USERNAME
+# @todo add PMA_SUBDIRECTORY param
+
 function usage {
 	this=$(basename $0)
 	cat <<-EOT
 	Usage: $this [HTTP_AUTH_USERNAME]
 
-	This script installs PHPMyAdmin and configures the "phpmyadmin" mysql account.
-	It also adds HTTP authentication to PHPMyAdmin.
-	It will first ask you for an HTTP authentication password and then it will ask you for the PHPMyAdmin account password later.
+	This script installs phpMyAdmin and configures the "phpmyadmin" mysql account.
+	It also adds HTTP authentication to phpMyAdmin.
+	It will first ask you for an HTTP authentication password and then it will ask you for the phpMyAdmin account password later.
 
 	If you need to change the HTTP authentication password, you can use "reset-pma-http-auth-password.sh" script.
 
@@ -17,9 +20,9 @@ function usage {
 
 	This command will:
 
-	- ask for a password for "johndoe"
-	- create an HTTP authentication with user name "johndoe" and the specified password
-	- install PHPMyAdmin
+	- ask for an HTTP authentication password for "johndoe"
+	- ask for a phpMyAdmin password for "johndoe"
+	- install phpMyAdmin
 	- ask for a password for the "phpmyadmin" mysql account
 	EOT
 }
@@ -45,7 +48,7 @@ else
 	fi
 fi
 
-# create http authentication password
+# set http authentication password
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
 	echo "HTTP authentication password for login '$http_auth_username'"
 	htpasswd -c ~/htpasswd.login $http_auth_username
@@ -67,7 +70,7 @@ fi
 sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
 sudo a2enconf phpmyadmin.conf
 
-# enable http authentication password
+# install http authentication password
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
 	sudo mv ~/htpasswd.login /etc/phpmyadmin/htpasswd.login
 fi
@@ -77,7 +80,6 @@ fi
 # AuthName "phpMyAdmin"
 # AuthUserFile /etc/phpmyadmin/htpasswd.login
 # Require valid-user
-#
 count=$(grep "AuthUserFile /etc/phpmyadmin/htpasswd.login" /etc/phpmyadmin/apache.conf | wc -l)
 if [ $count -eq 0 ]; then
 	sudo sed -i "9i\AuthType Basic" /etc/phpmyadmin/apache.conf

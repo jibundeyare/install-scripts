@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# @fixme use `read -s password` instead of passing password as an argument
+
 function usage {
 	this=$(basename $0)
 	cat <<-EOT
