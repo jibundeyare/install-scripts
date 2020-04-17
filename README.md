@@ -11,11 +11,12 @@ There are two categories of scripts in this repo:
 
 The install scripts do the follwing tasks:
 
-- install and configure a firewall
+- install and configure a firewall (currently unavailable)
 - install nvm
 - install python pip
 - install and configure the LAMP stack (Apache, MySQL and PHP FPM on Linux) then configure a project directory
-- install PHPMyAdmin with an HTTP authentication
+- install PHPMyAdmin from debian package, configures an HTTP authentication (currently unavailable)
+- install PHPMyAdmin from source, configures an HTTP authentication
 - reset PHPMyAdmin HTTP authentication password
 
 The helper scripts do the follwing tasks:
@@ -44,6 +45,6 @@ These scripts are meant to work with Debian 10 Buster but have not been thouroug
 Just run any script without any parameter and it will display a help screen.
 Choose the parameters value with care.
 
-If you stick to the posix characters (`a-zA-Z0-9_-.`) you'll be safe.
+If you stick to posix characters (`a-zA-Z0-9_-.`) you'll be safe.
 Avoid spaces and other specials characters.
 
