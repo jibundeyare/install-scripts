@@ -155,6 +155,21 @@ sudo cp phpmyadmin-apache2.conf /etc/apache2/conf-available/phpmyadmin.conf
 # Alias /pma_subdir /usr/share/phpmyadmin
 sudo sed -i "s/{pma_subdirectory}/$pma_subdirectory/g" /etc/apache2/conf-available/phpmyadmin.conf
 
+# create phpmyadmin dedicated php session directory
+sudo mkdir /var/lib/php/sessions/phpmyadmin
+
+# set appropriate rights (drwx-wx-wt) on the phpmyadmin dedicated php sessions directory
+sudo chmod 1733 /var/lib/php/sessions/phpmyadmin
+
+# copy template-pool.conf to php fpm pool directory
+sudo cp phpmyadmin-pool.conf /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+
+# edit file to match selected username
+sudo sed -i "s/{username}/$username/" /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+
+# restart php fpm
+sudo systemctl restart php7.4-fpm.service
+
 # enable phpmyadmin conf
 sudo a2enconf phpmyadmin.conf
 

@@ -77,3 +77,9 @@ sudo rm -fr /usr/share/phpmyadmin
 # remove /etc/phpmyadmin directory
 sudo rm -fr /etc/phpmyadmin
 
+# remove php fpm pool
+sudo rm /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+
+# remove phpmyadmin dedicated php session directory
+sudo rm -r /var/lib/php/sessions/phpmyadmin
+

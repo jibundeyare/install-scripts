@@ -109,6 +109,12 @@ else
 	echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/index.php
 fi
 
+# create a dedicated php session directory
+sudo mkdir /var/lib/php/sessions/$vhost_directory
+
+# set appropriate rights (drwx-wx-wt) on the dedicated php sessions directory
+sudo chmod 1733 /var/lib/php/sessions/$vhost_directory
+
 # copy template-pool.conf to php fpm pool directory
 sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 

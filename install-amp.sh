@@ -279,6 +279,12 @@ mkdir -p /home/$username/$projects_directory/$default_vhost_directory
 echo "<?php" > /home/$username/$projects_directory/$default_vhost_directory/index.php
 echo "echo 'OK $default_vhost_directory';" >> /home/$username/$projects_directory/$default_vhost_directory/index.php
 
+# create default virtual host dedicated php session directory
+sudo mkdir /var/lib/php/sessions/$default_vhost_directory
+
+# set appropriate rights on the default virtual host dedicated php sessions directory
+sudo chmod 1733 /var/lib/php/sessions/$default_vhost_directory
+
 # restart php fpm
 sudo systemctl restart php7.4-fpm.service
 

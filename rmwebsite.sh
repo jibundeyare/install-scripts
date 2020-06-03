@@ -59,3 +59,6 @@ sudo rm /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 # restart php fpm
 sudo systemctl restart php7.4-fpm.service
 
+# remove the dedicated php session directory
+sudo rm -r /var/lib/php/sessions/$vhost_directory
+
