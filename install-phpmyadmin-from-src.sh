@@ -152,7 +152,7 @@ sudo cp phpmyadmin-apache2.conf /etc/apache2/conf-available/phpmyadmin.conf
 # set sub directory
 # Alias /phpmyadmin /usr/share/phpmyadmin
 # =>
-# Alias /custom_pma /usr/share/phpmyadmin
+# Alias /pma_subdir /usr/share/phpmyadmin
 sudo sed -i "s/{pma_subdirectory}/$pma_subdirectory/g" /etc/apache2/conf-available/phpmyadmin.conf
 
 # enable phpmyadmin conf
