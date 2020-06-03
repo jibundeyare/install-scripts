@@ -41,7 +41,8 @@ else
 fi
 
 # check if phpmyadmin was installed from source
-sudo dpkg -l phpmyadmin | grep phpmyadmin > /dev/null
+# hide stdout and stderr
+sudo dpkg -l phpmyadmin | grep phpmyadmin > /dev/null 2> /dev/null
 
 if [ "$?" -eq 0 ]; then
 	echo "error: phpMyAdmin was installed with apt, not from source"
