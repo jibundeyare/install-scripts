@@ -113,8 +113,8 @@ fi
 sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # edit file to match selected username and vhost directory
-sudo sed -i "s/{username}/$username/" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
-sudo sed -i "s/{vhost_directory}/$vhost_directory/" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
 sudo systemctl restart php7.4-fpm.service
@@ -123,10 +123,10 @@ sudo systemctl restart php7.4-fpm.service
 sudo cp $vhost_template /etc/apache2/sites-available/$vhost_directory.conf
 
 # edit file to match selected username, projects directory, vhost directory and local domain name
-sudo sed -i "s/{username}/$username/" /etc/apache2/sites-available/$vhost_directory.conf
-sudo sed -i "s/{projects_directory}/$projects_directory/" /etc/apache2/sites-available/$vhost_directory.conf
-sudo sed -i "s/{vhost_directory}/$vhost_directory/" /etc/apache2/sites-available/$vhost_directory.conf
-sudo sed -i "s/{local_domain}/$local_domain/" /etc/apache2/sites-available/$vhost_directory.conf
+sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/$vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/$vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/apache2/sites-available/$vhost_directory.conf
+sudo sed -i "s/{local_domain}/$local_domain/g" /etc/apache2/sites-available/$vhost_directory.conf
 
 # enable vhost
 sudo a2ensite $vhost_directory.conf
