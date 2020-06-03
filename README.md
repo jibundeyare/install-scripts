@@ -48,3 +48,19 @@ Choose the parameters value with care.
 If you stick to posix characters (`a-zA-Z0-9_-.`) you'll be safe.
 Avoid spaces and other specials characters.
 
+## FAQ
+
+### Can I use the `mkwebsite.sh` with an existing project directory?
+
+If the project directory already exists, the `mkwebsite.sh` script will raise an error.
+This is a security feature to avoid rewriting existing apache vhost, php fpm pool and project directory.
+
+But it's easy to circumvent this security.
+Imagine you have an existing project directory named `/home/johndoe/projects/foo`:
+
+1. temporarily rename your existing project directory `mv projects/foo projects/bar`
+2. create a new website `./mkwebsite johndoe projects foo foo.example.com`
+3. remove the newly created project directory `rm -r projects/foo`
+4. put back your project directory `mv projects/bar projects/foo`
+5. restart the services and you're done `sudo systemctl restart php7.4-fpm.service && sudo systemctl restart apache2.service`
+
