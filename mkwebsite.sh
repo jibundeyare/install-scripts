@@ -97,7 +97,7 @@ fi
 mkdir -p /home/$username/$projects_directory/$vhost_directory
 
 # create a default home page
-if [ "$vhost_template" == "template-vhost-symfony.conf" ]; then
+if [ "$vhost_template" == "template-vhost-symfony.conf" ] || [ "$vhost_template" == "template-subdir-symfony.conf" ]; then
 	# create "public" document root directory
 	mkdir -p /home/$username/$projects_directory/$vhost_directory/public
 	# create the default home page in the "public" directory
