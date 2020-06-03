@@ -26,6 +26,14 @@ fi
 # install anydesk
 sudo apt install -y ./anydesk_${anydesk_version}_amd64.deb
 
+# disable wayland for teamviewer (and probably anydesk also)
+# @warning this needs a restart of the graphical interface
+sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm3/daemon.conf
+
+# inform user
+echo "in order to be able to use teamviewer, wayland has been disabled in favor of xorg"
+echo "warning: please be aware that the graphical interface must be restarted for this change to take effect"
+
 # log gnome default cursor theme name
 if [ ! -f "$log_file" ]; then
 	default_cursor_theme="$(gsettings get org.gnome.desktop.interface cursor-theme)"
