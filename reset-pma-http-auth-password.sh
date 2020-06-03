@@ -42,6 +42,12 @@ else
 	fi
 fi
 
+if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
+	echo "error: the file '/etc/phpmyadmin/htpasswd.login' does not exist."
+	echo "use './install-phpmyadmin-from-src.sh' to install it"
+	exit 1
+fi
+
 # create http authentication password
 echo "$dba_username's HTTP authentication password"
 sudo htpasswd -c /etc/phpmyadmin/htpasswd.login $dba_username
