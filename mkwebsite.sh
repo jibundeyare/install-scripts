@@ -134,3 +134,6 @@ sudo a2ensite $vhost_directory.conf
 # restart apache2
 sudo systemctl restart apache2.service
 
+# inform user
+echo "apache2 restarted"
+

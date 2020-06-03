@@ -54,6 +54,9 @@ sudo a2disconf phpmyadmin.conf
 # restart apache2
 sudo systemctl restart apache2.service
 
+# inform user
+echo "apache2 restarted"
+
 # remove phpmyadmin apache configuration file
 sudo rm /etc/apache2/conf-available/phpmyadmin.conf
 

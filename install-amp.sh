@@ -285,3 +285,6 @@ sudo systemctl restart php7.4-fpm.service
 # restart apache2
 sudo systemctl restart apache2.service
 
+# inform user
+echo "apache2 restarted"
+
