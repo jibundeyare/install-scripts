@@ -3,9 +3,6 @@
 echo "error: sorry, this script is currently unavailable"
 exit 1
 
-# @todo replace HTTP_AUTH_USERNAME param with DBA_USERNAME
-# @todo add PMA_SUBDIRECTORY param
-
 function usage {
 	this=$(basename $0)
 	cat <<-EOT
