@@ -117,13 +117,18 @@ sudo systemctl restart fail2ban
 sudo apt install -y ufw
 
 # configure ufw
+
+# delete all rules
+sudo ufw --force reset
+
+# set open ports
 # see /etc/services for list of services and tcp or udp type
 sudo ufw allow http
 sudo ufw allow https
 sudo ufw allow $ssh_port/tcp
 
 # enable ufw
-sudo ufw enable
+sudo ufw --force enable
 
 # display firewall status
 sudo ufw status
