@@ -38,6 +38,17 @@ else
 	username="$1"
 	ssh_port="$2"
 
+	if [ "$username" == "root" ]; then
+		echo "error: username must be different from root"
+		exit 1
+	fi
+
+	count=$(grep "$username" /etc/passwd | wc -l)
+	if [ $count -eq 0 ]; then
+		echo "error: username '$username' does not exist"
+		exit 1
+	fi
+
 	cat <<-EOT
 	USERNAME: $username
 	SSH_PORT: $ssh_port
