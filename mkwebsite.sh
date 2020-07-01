@@ -5,8 +5,8 @@ function usage {
 	cat <<-EOT
 	Usage: $this [USERNAME] [PROJECTS_DIRECTORY] [VHOST_DIRECTORY] [DOMAIN] [VHOST_TEMPLATE]
 
-	This script configures a new empty website.
-	It creates a new directory in your projects directory, configures the Apache2 vhost and the PHP-FPM pool files and finaly creates a default PHP home page.
+	This script configures a new website.
+	It configures the Apache2 vhost and the PHP-FPM pool files.
 
 	Warning: this script will stop before doing anything if:
 
@@ -34,8 +34,6 @@ function usage {
 
 	- make the website accessible from the url "http://foo.local"
 	- use the default "template-vhost.conf" for the VHOST_TEMPLATE value
-	- create the project directory "/home/johndoe/projects/foo"
-	- create a default PHP home page in the "/home/johndoe/projects/foo" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
 
@@ -52,9 +50,6 @@ function usage {
 
 	- make the website accessible from the url "http://foo.local"
 	- use the template "template-vhost-symfony.conf" for the VHOST_TEMPLATE value
-	- create the project directory "/home/johndoe/projects/example"
-	- create the document root directory "/home/johndoe/projects/example/public"
-	- create a default PHP home page in the "/home/johndoe/projects/example/public" directory
 	- create the Apache2 vhost file "/etc/apache2/sites-available/example.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
 
@@ -72,8 +67,6 @@ function usage {
 	- ignore the domain "foo.local" parameter
 	- make the website accessible from the url "http://localhost/foo", "http://example.com/foo" or "http://1.2.3.4/foo" depending on wether you are on a local machine, a vps and if you have a domain name or not.
 	- use the template "template-subdir.conf" for the VHOST_TEMPLATE value
-	- create the project directory "/home/johndoe/projects/foo"
-	- create a default PHP home page in the "/home/johndoe/projects/foo" directory
 	- create the Apache2 conf file "/etc/apache2/sites-available/foo.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
 
@@ -84,9 +77,6 @@ function usage {
 	- ignore the domain "foo.local" parameter
 	- make the website accessible from the url "http://localhost/foo", "http://example.com/foo" or "http://1.2.3.4/foo" depending on wether you are on a local machine, a vps and if you have a domain name or not.
 	- use the template "template-subdir-symfony.conf" for the VHOST_TEMPLATE value
-	- create the project directory "/home/johndoe/projects/example"
-	- create the document root directory "/home/johndoe/projects/example/public"
-	- create a default PHP home page in the "/home/johndoe/projects/example/public" directory
 	- create the Apache2 conf file "/etc/apache2/sites-available/example.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
 
@@ -139,27 +129,6 @@ fi
 if [ ! -d /home/$username/$projects_directory ]; then
 	echo "error: the projects directory '/home/$username/$projects_directory' does not exist"
 	exit 1
-fi
-
-if [ -d /home/$username/$projects_directory/$vhost_directory ]; then
-	echo "error: vhost directory '/home/$username/$projects_directory/$vhost_directory' already exists"
-	exit 1
-fi
-
-# create virtual host directory
-mkdir -p /home/$username/$projects_directory/$vhost_directory
-
-# create a default home page
-if [ "$vhost_template" == "template-vhost-symfony.conf" ] || [ "$vhost_template" == "template-subdir-symfony.conf" ]; then
-	# create "public" document root directory
-	mkdir -p /home/$username/$projects_directory/$vhost_directory/public
-	# create the default home page in the "public" directory
-	echo "<?php" > /home/$username/$projects_directory/$vhost_directory/public/index.php
-	echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/public/index.php
-else
-	# create the default home page in the document root directory
-	echo "<?php" > /home/$username/$projects_directory/$vhost_directory/index.php
-	echo "echo 'OK $vhost_directory';" >> /home/$username/$projects_directory/$vhost_directory/index.php
 fi
 
 # create a dedicated php session directory

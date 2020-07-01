@@ -21,7 +21,7 @@ The install scripts do the follwing tasks:
 
 The helper scripts do the follwing tasks:
 
-- create a new website (project directory, virtual host, PHP FPM pool)
+- create a new website (virtual host, PHP FPM pool)
 - remove a website (virtual host and PHP FPM pool but not the project directory)
 - add a domain to the `/etc/hosts` file (the script backs up the file before modifying it)
 - remove a domain from the `/etc/hosts` file (the script backs up the file before modifying it)
@@ -52,15 +52,9 @@ Avoid spaces and other specials characters.
 
 ### Can I use the `mkwebsite.sh` with an existing project directory?
 
-If the project directory already exists, the `mkwebsite.sh` script will raise an error.
-This is a security feature to avoid rewriting existing apache vhost, php fpm pool and project directory.
+Yes. If the project directory already exists, the `mkwebsite.sh` script will NOT raise an error.
 
-But it's easy to circumvent this security.
-Imagine you have an existing project directory named `/home/johndoe/projects/foo`:
+### `mkwebsite.sh` does not create the project directory?
 
-1. temporarily rename your existing project directory `mv projects/foo projects/bar`
-2. create a new website `./mkwebsite johndoe projects foo foo.example.com`
-3. remove the newly created project directory `rm -r projects/foo`
-4. put back your project directory `mv projects/bar projects/foo`
-5. restart the services and you're done `sudo systemctl restart php7.4-fpm.service && sudo systemctl restart apache2.service`
-
+No. This script does not create the project directory anymore.
+The directory must be created by other means (`mkdir`, `git clone`, `symfony new`, or `scp` and `rsync` between two machines).
