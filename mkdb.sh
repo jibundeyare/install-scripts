@@ -62,8 +62,8 @@ fi
 cat <<-EOT |
 CREATE DATABASE $app_name DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER '$app_name'@'%';
+GRANT USAGE ON *.* TO '$app_name'@'%' IDENTIFIED BY '$app_password';
 GRANT ALL PRIVILEGES ON $app_name.* TO '$app_name'@'%';
-GRANT USAGE ON $app_name.* TO '$app_name'@'%' IDENTIFIED BY '$app_password';
 FLUSH PRIVILEGES;
 EOT
 sudo mysql -p
