@@ -9,32 +9,8 @@ sudo apt install -y gromit-mpx
 # install obs
 sudo apt install -y obs-studio
 
-# download teamviewer
-if [ ! -f "teamviewer_amd64.deb" ]; then
-	wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
-fi
-
-# install teamviewer
-sudo apt install -y ./teamviewer_amd64.deb
-
-# download anydesk
-anydesk_version="5.5.4-1"
-if [ ! -f "anydesk_${anydesk_version}_amd64.deb" ]; then
-	wget "https://download.anydesk.com/linux/anydesk_${anydesk_version}_amd64.deb"
-fi
-
-# install anydesk
-sudo apt install -y ./anydesk_${anydesk_version}_amd64.deb
-
-# disable wayland for teamviewer (and probably anydesk also)
-# @warning this needs a restart of the graphical interface
-sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm3/daemon.conf
-
-# inform user
-echo "in order to be able to use teamviewer, wayland has been disabled in favor of xorg"
-echo "warning: please be aware that the graphical interface must be restarted for this change to take effect"
-
 # log gnome default cursor theme name
+# @info with debian 9, default cursor theme is 'Adwaita'
 if [ ! -f "$log_file" ]; then
 	default_cursor_theme="$(gsettings get org.gnome.desktop.interface cursor-theme)"
 	echo "default_cursor_theme: $default_cursor_theme" > $log_file
