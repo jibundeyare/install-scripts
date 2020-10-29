@@ -1,20 +1,10 @@
 #!/bin/bash
 
-# set log file
-log_file="install-foad.log"
-
 # install gromit-mpx
 sudo apt install -y gromit-mpx
 
 # install obs
 sudo apt install -y obs-studio
-
-# log gnome default cursor theme name
-# @info with debian 9, default cursor theme is 'Adwaita'
-if [ ! -f "$log_file" ]; then
-	default_cursor_theme="$(gsettings get org.gnome.desktop.interface cursor-theme)"
-	echo "default_cursor_theme: $default_cursor_theme" > $log_file
-fi
 
 # download gnome bDMZ cursor theme
 if [ ! -f "160115-bDMZT.tar.gz" ]; then
