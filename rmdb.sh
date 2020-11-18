@@ -54,6 +54,9 @@ else
 	fi
 fi
 
+echo "enter sudo password if asked"
+echo "then enter mariadb root password (which can be blank)"
+
 # database
 cat <<-EOT |
 DROP USER '$app_name'@'%';

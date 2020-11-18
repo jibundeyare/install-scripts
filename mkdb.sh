@@ -69,7 +69,8 @@ if [ "$app_password" != "$app_password2" ]; then
 	exit 1
 fi
 
-echo "enter current user password then mariadb root password"
+echo "enter sudo password if asked"
+echo "then enter mariadb root password (which can be blank)"
 
 # database
 cat <<-EOT |
