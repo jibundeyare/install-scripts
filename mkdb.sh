@@ -26,7 +26,7 @@ function usage {
 	EOT
 }
 
-if [ $# -lt 2 ]; then
+if [ $# -lt 1 ]; then
 	usage
 	exit 1
 else
