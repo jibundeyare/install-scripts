@@ -69,6 +69,8 @@ if [ "$app_password" != "$app_password2" ]; then
 	exit 1
 fi
 
+echo "enter current user password then mariadb root password"
+
 # database
 cat <<-EOT |
 CREATE DATABASE $app_name DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
