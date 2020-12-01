@@ -18,13 +18,13 @@ echo "- cursor theme ('$default_cursor_theme')"
 echo "- windows manager button layout"
 
 # revert to gnome default cursor theme
-gsettings set org.gnome.desktop.interface cursor-theme '$default_cursor_theme'
+gsettings set org.gnome.desktop.interface cursor-theme $default_cursor_theme
 gsettings set org.gnome.desktop.wm.preferences button-layout ':close'
 
 # remove log file only if gnome default cursor theme was restored
 active_cursor_theme="$(gsettings get org.gnome.desktop.interface cursor-theme)"
 
-if [ "$active_cursor_theme" == "$default_cursor_theme" ]; then
+if [ "$active_cursor_theme" == "'$default_cursor_theme'" ]; then
 	rm $log_file
 fi
 
