@@ -1,0 +1,8 @@
+# deb files and source packages
+/anydesk_*.deb
+/phpMyAdmin-*-all-languages.tar.gz
+/teamviewer_*.deb
+
+# config files
+/teacher-wacom-conf.sh
+
