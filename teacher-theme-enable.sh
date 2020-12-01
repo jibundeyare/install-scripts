@@ -11,6 +11,10 @@ if [ ! -f "$log_file" ]; then
 	echo "default_cursor_theme: $default_cursor_theme" > $log_file
 fi
 
+echo "customizing gnome:"
+echo "- cursor theme"
+echo "- windows manager button layout"
+
 # enable gnome bDMZT cursor theme only if it's installed
 if [ -d "/usr/share/icons/bbDMZ" ]; then
 	gsettings set org.gnome.desktop.interface cursor-theme 'bbDMZ'
