@@ -58,3 +58,4 @@ Yes. If the project directory already exists, the `mkwebsite.sh` script will NOT
 
 No. This script does not create the project directory anymore.
 The directory must be created by other means (`mkdir`, `git clone`, `symfony new`, or `scp` and `rsync` between two machines).
+
