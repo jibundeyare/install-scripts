@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# set wacom tablet device ids
+# use `xsetwacom --list devices` to get a full list
+# example:
+# wacom_devices="1 2"
+wacom_devices=""
+
