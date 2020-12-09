@@ -19,14 +19,14 @@ function usage {
 	PMA_SUBDIRECTORY is the sub directory to access phpMyAdmin with your web browser
 	PMA_VERSION is the version of phpMyAdmin you want to install
 
-	Example: $this johndoe dba pma_subdir 5.0.2
+	Example: $this johndoe dba pma_subdir 5.0.4
 
 	This command will:
 
 	- ask for an HTTP authentication password for phpMyAdmin database administrator "dba"
 	- ask for a phpMyAdmin password for phpMyAdmin database administrator "dba"
-	- download source from "https://files.phpmyadmin.net/phpMyAdmin/5.0.2/phpMyAdmin-5.0.2-all-languages.tar.gz"
-	- install phpMyAdmin 5.0.2
+	- download source from "https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz"
+	- install phpMyAdmin 5.0.4
 	- make phpMyAdmin accessible with the "http://127.0.0.1/pma_subdir" url
 	EOT
 }
