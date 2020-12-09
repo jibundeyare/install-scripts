@@ -174,10 +174,10 @@ sudo systemctl restart php7.4-fpm.service
 sudo a2enconf phpmyadmin.conf
 
 # restart apache2
-sudo systemctl restart apache2.service
+sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 restarted"
+echo "apache2 reloaded"
 
 # create phpmyadmin tables
 sudo mariadb < /usr/share/phpmyadmin/sql/create_tables.sql

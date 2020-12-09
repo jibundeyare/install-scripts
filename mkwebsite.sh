@@ -160,8 +160,8 @@ sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/$vhost_directory
 sudo a2ensite $vhost_directory.conf
 
 # restart apache2
-sudo systemctl restart apache2.service
+sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 restarted"
+echo "apache2 reloaded"
 

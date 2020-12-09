@@ -48,10 +48,10 @@ sudo a2dissite $vhost_directory
 sudo rm /etc/apache2/sites-available/$vhost_directory.conf
 
 # restart apache2
-sudo systemctl restart apache2.service
+sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 restarted"
+echo "apache2 reloaded"
 
 # remove pool config from php fpm pool directory
 sudo rm /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
