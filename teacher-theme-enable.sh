@@ -2,13 +2,13 @@
 
 # @info with debian 9, default cursor theme is 'Adwaita'
 
-# set log file
-log_file="teacher-theme.log"
+# set lock file
+lock_file="teacher-theme.lock"
 
-# log gnome default cursor theme name
-if [ ! -f "$log_file" ]; then
+# save gnome default cursor theme name
+if [ ! -f "$lock_file" ]; then
 	default_cursor_theme="$(gsettings get org.gnome.desktop.interface cursor-theme)"
-	echo "default_cursor_theme: $default_cursor_theme" > $log_file
+	echo "default_cursor_theme: $default_cursor_theme" > $lock_file
 fi
 
 echo "customizing gnome:"
