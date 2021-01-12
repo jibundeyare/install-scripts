@@ -3,7 +3,7 @@
 function usage {
 	this=$(basename $0)
 	cat <<-EOT
-	Usage: $this [USERNAME] [PROJECTS_DIRECTORY] [DEFAULT_VHOST_DIRECTORY]
+	Usage: $this [USERNAME] [PROJECTS_DIRECTORY] [DEFAULT_VHOST_DIRECTORY] [DOMAIN]
 
 	This script installs apache2, mariadb, php7 and php-fpm.
 	The script modifies the default configuration of apache2 and php7.
@@ -15,6 +15,8 @@ function usage {
 	USERNAME should be your username.
 	PROJECTS_DIRECTORY is the directory in which you'll store all your projects.
 	DEFAULT_VHOST_DIRECTORY is the directory containing the default website.
+	DOMAIN is the domain name you will be using in your web browser to access a particular project.
+	  This value is also used to set the sender email domain when sending mails
 
 	Example: $this johndoe projects www
 
@@ -26,7 +28,7 @@ function usage {
 	EOT
 }
 
-if [ $# -lt 3 ]; then
+if [ $# -lt 4 ]; then
 	usage
 	exit 1
 else
@@ -34,11 +36,13 @@ else
 	username="$1"
 	projects_directory="$2"
 	default_vhost_directory="$3"
+	domain="$4"
 
 	cat <<-EOT
 	USERNAME: $username
 	PROJECTS_DIRECTORY: $projects_directory
 	DEFAULT_VHOST_DIRECTORY: $default_vhost_directory
+	DOMAIN: $domain
 
 	EOT
 
