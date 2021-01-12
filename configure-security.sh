@@ -66,6 +66,24 @@ else
 	fi
 fi
 
+# install unattended upgrades
+sudo apt-get install -y unattended-upgrades
+
+# backup current unattended upgrades config
+if [ ! -f /etc/apt/apt.conf.d/20auto-upgrades.orig ]; then
+	sudo mv /etc/apt/apt.conf.d/20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades.orig
+fi
+if [ ! -f /etc/apt/apt.conf.d/50unattended-upgrades.orig ]; then
+	sudo mv /etc/apt/apt.conf.d/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades.orig
+fi
+
+# copy unattended config teplate to apt directory
+sudo cp template-20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
+sudo cp template-50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
+
+# enable unattended upgrades
+sudo systemctl status unattended-upgrades.service
+
 # backup current sshd config
 if [ ! -f /etc/ssh/sshd_config.orig ]; then
 	sudo mv /etc/ssh/sshd_config /etc/ssh/sshd_config.orig
