@@ -8,7 +8,7 @@
 
         <h1>{vhost_directory} ok</h1>
 <?php
-echo "<h2 style=\"color: green;\">php is working</h2>\n";
+echo "<h2 style=\"color: green;\">info: php is working</h2>\n";
 
 // home
 // echo 'home: '.getcwd().'<br>';
