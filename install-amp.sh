@@ -88,42 +88,16 @@ if [ ! -f /etc/php/7.4/fpm/php.ini.orig ]; then
 	sudo mv /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.ini.orig
 fi
 
-# restore original files
-sudo cp /etc/php/7.4/apache2/php.ini.orig /etc/php/7.4/apache2/php.ini
-sudo cp /etc/php/7.4/cli/php.ini.orig /etc/php/7.4/cli/php.ini
-sudo cp /etc/php/7.4/fpm/php.ini.orig /etc/php/7.4/fpm/php.ini
-
-# configure time zone
-# ;date.timezone =
-# =>
+# configure time zone, log size, form upload max data size and form upload max data size
 # date.timezone = Europe/Paris
-sudo sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php/7.4/fpm/php.ini
-
-# configure log size
-# log_errors_max_len = 1024
-# =>
 # log_errors_max_len = 0
-sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/log_errors_max_len = 1024/log_errors_max_len = 0/" /etc/php/7.4/fpm/php.ini
-
-# configure form upload max data size
-# upload_max_filesize = 2M
-# =>
 # upload_max_filesize = 32M
-sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 32M/" /etc/php/7.4/fpm/php.ini
-
-# configure form upload max data size
-# post_max_size = 8M
-# =>
 # post_max_size = 32M
-sudo sed -i "s/post_max_size = 8M/post_max_size = 32M/" /etc/php/7.4/apache2/php.ini
-sudo sed -i "s/post_max_size = 8M/post_max_size = 32M/" /etc/php/7.4/cli/php.ini
-sudo sed -i "s/post_max_size = 8M/post_max_size = 32M/" /etc/php/7.4/fpm/php.ini
+#
+# copy template-*-php.ini to php directory
+sudo cp template-apache2-php.ini /etc/php/7.4/apache2/php.ini
+sudo cp template-cli-php.ini /etc/php/7.4/cli/php.ini
+sudo cp template-fpm-php.ini /etc/php/7.4/fpm/php.ini
 
 # configure apache2
 
