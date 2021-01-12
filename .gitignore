@@ -6,3 +6,6 @@
 # config files
 /teacher-wacom-conf.sh
 
+# lock files
+/teacher-theme.lock
+
