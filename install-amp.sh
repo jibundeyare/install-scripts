@@ -7,10 +7,10 @@ function usage {
 
 	This script installs apache2, mariadb, php7 and php-fpm.
 	The script modifies the default configuration of apache2 and php7.
-	The script modifies the default vhost and php-fpm pool:
+	The script modifies the default virtual host and php-fpm pool:
 	- the user's PROJECTS_DIRECTORY is whitelisted
-	- the default vhost is set to PROJECTS_DIRECTORY/DEFAULT_VHOST_DIRECTORY
-	- the default vhost is set to work with php-fpm
+	- the default virtual host is set to PROJECTS_DIRECTORY/DEFAULT_VHOST_DIRECTORY
+	- the default virtual host is set to work with php-fpm
 
 	USERNAME should be your username.
 	PROJECTS_DIRECTORY is the directory in which you'll store all your projects.

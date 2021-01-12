@@ -6,7 +6,7 @@ function usage {
 	Usage: $this [USERNAME] [PROJECTS_DIRECTORY] [VHOST_DIRECTORY] [DOMAIN] [VHOST_TEMPLATE]
 
 	This script configures a new website.
-	It configures the Apache2 vhost and the PHP-FPM pool files.
+	It configures the Apache2 virtual host and the PHP-FPM pool files.
 
 	Warning: this script will stop before doing anything if:
 
@@ -18,10 +18,11 @@ function usage {
 	PROJECTS_DIRECTORY is the directory in which you'll store all your projects.
 	VHOST_DIRECTORY is the directory in which a particular project will be stored.
 	DOMAIN is the domain name you will be using in your web browser to access a particular project.
-	VHOST_TEMPLATE is an optional parameter that specifies the Apache2 vhost template you want to use for a particular project.
+	  This value is also used to set the sender email domain when sending mails
+	VHOST_TEMPLATE is an optional parameter that specifies the Apache2 virtual host template you want to use for a particular project.
 	  Possible values are: template-vhost.conf, template-vhost-symfony.conf, template-subdir.conf, template-subdir-symfony.conf
-	  template-vhost*.conf files will create a new vhost.
-	  Creating a new vhost is useful when you have a domain name and you want to separate your applications into different directories and memory space.
+	  template-vhost*.conf files will create a new virtual host.
+	  Creating a new virtual host is useful when you have a domain name and you want to separate your applications into different directories and memory space.
 	  template-subdir*.conf files will create a new sub-directory.
 	  Creating a new sub-directory is useful when you do not have a domain name but still want to separate applications into different directories and memory space.
 	  Default value is "template-vhost.conf".
@@ -34,7 +35,7 @@ function usage {
 
 	- make the website accessible from the url "http://foo.local"
 	- use the default "template-vhost.conf" for the VHOST_TEMPLATE value
-	- create the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
+	- create the Apache2 virtual host file "/etc/apache2/sites-available/foo.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
 
 	Example 2: $this johndoe projects foo foo.example.com
@@ -50,7 +51,7 @@ function usage {
 
 	- make the website accessible from the url "http://foo.local"
 	- use the template "template-vhost-symfony.conf" for the VHOST_TEMPLATE value
-	- create the Apache2 vhost file "/etc/apache2/sites-available/example.conf"
+	- create the Apache2 virtual host file "/etc/apache2/sites-available/example.conf"
 	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
 
 	Example 4: $this johndoe projects foo foo.example.com template-vhost-symfony.conf
@@ -140,23 +141,23 @@ sudo chmod 1733 /var/lib/php/sessions/$vhost_directory
 # copy template-pool.conf to php fpm pool directory
 sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
-# edit file to match selected username and vhost directory
+# edit file to match selected username and virtual host directory
 sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
 sudo systemctl restart php7.4-fpm.service
 
-# copy template-vhost.conf to apache2 available vhost directory
+# copy template-vhost.conf to apache2 available virtual host directory
 sudo cp $vhost_template /etc/apache2/sites-available/$vhost_directory.conf
 
-# edit file to match selected username, projects directory, vhost directory and local domain name
+# edit file to match selected username, projects directory, virtual host directory and local domain name
 sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/$vhost_directory.conf
 sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/$vhost_directory.conf
 sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/apache2/sites-available/$vhost_directory.conf
 sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/$vhost_directory.conf
 
-# enable vhost
+# enable virtual host
 sudo a2ensite $vhost_directory.conf
 
 # restart apache2
