@@ -138,31 +138,13 @@ if [ ! -f /etc/php/7.4/fpm/pool.d/www.conf.orig ]; then
 	sudo mv /etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf.orig
 fi
 
-# restore original file using default vhost directory name
-sudo cp /etc/php/7.4/fpm/pool.d/www.conf.orig /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+# copy template-pool.conf to php fpm pool directory
+sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
-# set pool
-# 'www'
-# =>
-# '$default_vhost_directory'
-sudo sed -i "s/'www'/'$default_vhost_directory'/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# [www]
-# =>
-# [$default_vhost_directory]
-sudo sed -i "s/\[www\]/[$default_vhost_directory]/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# set socket path
-# listen = /run/php/php7.4-fpm.sock
-# =>
-# listen = /run/php/php7.4-fpm.$pool.sock
-sudo sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = \/run\/php\/php7.4-fpm.\$pool.sock/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# set log path
-# ;php_admin_value[error_log] = /var/log/fpm-php.www.log
-# =>
-# php_admin_value[error_log] = /var/log/fpm-php.$pool.log
-sudo sed -i "s/;php_admin_value\[error_log\] = \/var\/log\/fpm-php.www.log/php_admin_value[error_log] = \/var\/log\/fpm-php.\$pool.log/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+# edit file to match selected username and virtual host directory
+sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
 # configure apache2 virtual host
 
