@@ -66,6 +66,34 @@ else
 	fi
 fi
 
+# init sudo password
+sudo ls > /dev/null
+
+# ask user for mariadb root password
+echo ""
+echo -n "mariadb root password: "
+read -s mariadb_root_password
+echo ""
+echo -n "confirm password: "
+read -s mariadb_root_password2
+echo ""
+echo ""
+
+if [ "$mariadb_root_password" != "$mariadb_root_password" ]; then
+	echo "error: the mariadb root passwords did not match"
+	exit 1
+fi
+
+# secure mariadb installation
+sudo mariadb <<-EOT
+UPDATE mysql.user SET Password=PASSWORD('$mariadb_root_password') WHERE User='root';
+DELETE FROM mysql.user WHERE User='';
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
+FLUSH PRIVILEGES;
+EOT
+
 # install unattended upgrades
 sudo apt-get install -y unattended-upgrades
 
