@@ -124,26 +124,12 @@ if [ ! -f /etc/apache2/apache2.conf.orig ]; then
 	sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
 fi
 
-# restore original files
-sudo cp /etc/apache2/apache2.conf.orig /etc/apache2/apache2.conf
+# copy template-apache2.conf to apache2 directory
+sudo cp template-apache2.conf /etc/apache2/apache2.conf
 
-# whitelist /home/popschool/projects document root directory
-# <Directory /home/popschool/projects/>
-#	Options Indexes FollowSymLinks
-#	AllowOverride All
-#	Require all granted
-# </Directory>
-#
-count=$(grep "/home/$username/$projects_directory" /etc/apache2/apache2.conf | wc -l)
-if [ $count -eq 0 ]; then
-	sudo sed -i "182i\<Directory /home/$username/$projects_directory/>" /etc/apache2/apache2.conf
-	sudo sed -i "183i\\\tHeader set Access-Control-Allow-Origin \"*\"" /etc/apache2/apache2.conf
-	sudo sed -i "183i\\\tOptions Indexes FollowSymLinks" /etc/apache2/apache2.conf
-	sudo sed -i "184i\\\tAllowOverride All" /etc/apache2/apache2.conf
-	sudo sed -i "185i\\\tRequire all granted" /etc/apache2/apache2.conf
-	sudo sed -i "186i\</Directory>" /etc/apache2/apache2.conf
-	sudo sed -i "187i\\\\" /etc/apache2/apache2.conf
-fi
+# edit file to match selected username and projects directory
+sudo sed -i "s/{username}/$username/g" /etc/apache2/apache2.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/apache2.conf
 
 # configure php fpm
 
@@ -185,38 +171,14 @@ if [ ! -f /etc/apache2/sites-available/000-default.conf.orig ]; then
 	sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
 fi
 
-# restore original file
-sudo cp /etc/apache2/sites-available/000-default.conf.orig /etc/apache2/sites-available/000-default.conf
+# copy template-000-default.conf to apache2 available virtual host directory
+sudo cp template-000-default.conf /etc/apache2/sites-available/000-default.conf
 
-# set document root for default virtual host
-# DocumentRoot /var/www/html
-# =>
-# DocumentRoot /home/popschool/projects/www
-sudo sed -i "s/DocumentRoot \/var\/www\/html/DocumentRoot \/home\/$username\/$projects_directory\/$default_vhost_directory/" /etc/apache2/sites-available/000-default.conf
-
-# add socket config to default virtual host
-#
-#	<IfModule proxy_fcgi_module>
-#	<FilesMatch ".+\.ph(ar|p|tml)$">
-#		SetHandler "proxy:unix:/run/php/php7.4-fpm.www.sock|fcgi://localhost"
-#	</FilesMatch>
-#	</IfModule>
-count=$(grep "/run/php/php7.4-fpm.$default_vhost_directory.sock" /etc/apache2/sites-available/000-default.conf | wc -l)
-if [ $count -eq 0 ]; then
-	sudo sed -i "29i\\\\" /etc/apache2/sites-available/000-default.conf
-	sudo sed -i "30i\\\t<IfModule proxy_fcgi_module>" /etc/apache2/sites-available/000-default.conf
-	sudo sed -i "31i\\\t<FilesMatch \".+\\\.ph(ar|p|tml)\$\">" /etc/apache2/sites-available/000-default.conf
-	sudo sed -i "32i\\\t\\tSetHandler \"proxy:unix:/run/php/php7.4-fpm.$default_vhost_directory.sock|fcgi://localhost\"" /etc/apache2/sites-available/000-default.conf
-	sudo sed -i "33i\\\t</FilesMatch>" /etc/apache2/sites-available/000-default.conf
-	sudo sed -i "34i\\\t</IfModule>" /etc/apache2/sites-available/000-default.conf
-fi
-
-# create default virtual host directory
-mkdir -p /home/$username/$projects_directory/$default_vhost_directory
-
-# create default virtual host home page
-echo "<?php" > /home/$username/$projects_directory/$default_vhost_directory/index.php
-echo "echo 'OK $default_vhost_directory';" >> /home/$username/$projects_directory/$default_vhost_directory/index.php
+# edit file to match selected username, projects directory, virtual host directory and local domain name
+sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/000-default.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/000-default.conf
+sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/apache2/sites-available/000-default.conf
+sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/000-default.conf
 
 # create default virtual host dedicated php session directory
 sudo mkdir /var/lib/php/sessions/$default_vhost_directory
