@@ -177,7 +177,7 @@ sudo cp template-000-default.conf /etc/apache2/sites-available/000-default.conf
 # edit file to match selected username, projects directory, virtual host directory and local domain name
 sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/000-default.conf
 sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/000-default.conf
-sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/apache2/sites-available/000-default.conf
+sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/apache2/sites-available/000-default.conf
 sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/000-default.conf
 
 # create default virtual host dedicated php session directory
