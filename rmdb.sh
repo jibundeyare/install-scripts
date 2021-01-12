@@ -59,7 +59,7 @@ echo "then enter mariadb root password (which can be blank)"
 
 # database
 cat <<-EOT |
-DROP USER '$app_name'@'%';
+DROP USER '$app_name'@'localhost';
 DROP DATABASE $app_name;
 FLUSH PRIVILEGES;
 EOT
