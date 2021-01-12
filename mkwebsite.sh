@@ -143,6 +143,7 @@ sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
 # edit file to match selected username and virtual host directory
 sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
 
