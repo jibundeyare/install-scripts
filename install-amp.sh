@@ -151,7 +151,7 @@ sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$default_vhost_direct
 
 # backup current config
 if [ ! -f /etc/apache2/sites-available/000-default.conf.orig ]; then
-	sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
+	sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
 fi
 
 # copy template-000-default.conf to apache2 available virtual host directory
