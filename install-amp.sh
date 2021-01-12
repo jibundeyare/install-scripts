@@ -8,7 +8,6 @@ function usage {
 	This script installs apache2, mariadb, php7 and php-fpm.
 	The script modifies the default configuration of apache2 and php7.
 	The script modifies the default vhost and php-fpm pool:
-	- the "www-data" is replaced with the USERNAME value
 	- the user's PROJECTS_DIRECTORY is whitelisted
 	- the default vhost is set to PROJECTS_DIRECTORY/DEFAULT_VHOST_DIRECTORY
 	- the default vhost is set to work with php-fpm
@@ -142,28 +141,12 @@ sudo a2enconf php7.4-fpm
 sudo a2enmod proxy_fcgi
 
 # backup current config
-if [ ! -f /etc/apache2/envvars.orig ]; then
-	sudo mv /etc/apache2/envvars /etc/apache2/envvars.orig
-fi
 if [ ! -f /etc/apache2/apache2.conf.orig ]; then
 	sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
 fi
 
 # restore original files
-sudo cp /etc/apache2/envvars.orig /etc/apache2/envvars
 sudo cp /etc/apache2/apache2.conf.orig /etc/apache2/apache2.conf
-
-# set user
-# export APACHE_RUN_USER=www-data
-# =>
-# export APACHE_RUN_USER=popschool
-sudo sed -i "s/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=$username/" /etc/apache2/envvars
-
-# set group
-# export APACHE_RUN_GROUP=www-data
-# =>
-# export APACHE_RUN_GROUP=popschool
-sudo sed -i "s/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=$username/" /etc/apache2/envvars
 
 # whitelist /home/popschool/projects document root directory
 # <Directory /home/popschool/projects/>
@@ -204,35 +187,11 @@ sudo sed -i "s/'www'/'$default_vhost_directory'/" /etc/php/7.4/fpm/pool.d/$defau
 # [$default_vhost_directory]
 sudo sed -i "s/\[www\]/[$default_vhost_directory]/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
-# set user
-# user = www-data
-# =>
-# user = popschool
-sudo sed -i "s/user = www-data/user = $username/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# set group
-# group = www-data
-# =>
-# group = popschool
-sudo sed -i "s/group = www-data/group = $username/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
 # set socket path
 # listen = /run/php/php7.4-fpm.sock
 # =>
 # listen = /run/php/php7.4-fpm.$pool.sock
 sudo sed -i "s/listen = \/run\/php\/php7.4-fpm.sock/listen = \/run\/php\/php7.4-fpm.\$pool.sock/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# set socket owner
-# listen.owner = www-data
-# =>
-# listen.owner = popschool
-sudo sed -i "s/listen.owner = www-data/listen.owner = $username/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-
-# set socket group
-# listen.group = www-data
-# =>
-# listen.group = popschool
-sudo sed -i "s/listen.group = www-data/listen.group = $username/" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
 # set log path
 # ;php_admin_value[error_log] = /var/log/fpm-php.www.log
