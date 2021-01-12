@@ -141,8 +141,9 @@ fi
 # copy template-pool.conf to php fpm pool directory
 sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
-# edit file to match selected username and virtual host directory
+# edit file to match selected username, projects directory, virtual host directory and local domain name
 sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
 
