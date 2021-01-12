@@ -175,6 +175,7 @@ sudo sed -i "s/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=$usernam
 count=$(grep "/home/$username/$projects_directory" /etc/apache2/apache2.conf | wc -l)
 if [ $count -eq 0 ]; then
 	sudo sed -i "182i\<Directory /home/$username/$projects_directory/>" /etc/apache2/apache2.conf
+	sudo sed -i "183i\\\tHeader set Access-Control-Allow-Origin \"*\"" /etc/apache2/apache2.conf
 	sudo sed -i "183i\\\tOptions Indexes FollowSymLinks" /etc/apache2/apache2.conf
 	sudo sed -i "184i\\\tAllowOverride All" /etc/apache2/apache2.conf
 	sudo sed -i "185i\\\tRequire all granted" /etc/apache2/apache2.conf
