@@ -102,6 +102,7 @@ sudo cp template-fpm-php.ini /etc/php/7.4/fpm/php.ini
 # configure apache2
 
 # general settings
+sudo a2enmod headers
 sudo a2enmod setenvif
 sudo a2enmod rewrite
 
