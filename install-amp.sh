@@ -168,6 +168,15 @@ sudo mkdir /var/lib/php/sessions/$default_vhost_directory
 # set appropriate rights on the default virtual host dedicated php sessions directory
 sudo chmod 1733 /var/lib/php/sessions/$default_vhost_directory
 
+# create default virtual host directory
+mkdir -p /home/$username/$projects_directory/$default_vhost_directory
+
+# copy template-index.php to virtual host directory
+sudo cp template-index.php /home/$username/$projects_directory/$default_vhost_directory/index.php
+
+# edit file to match selected virtual host directory
+sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /home/$username/$projects_directory/$default_vhost_directory/index.php
+
 # restart php fpm
 sudo systemctl restart php7.4-fpm.service
 
