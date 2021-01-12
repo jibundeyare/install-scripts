@@ -4,6 +4,7 @@
 /teamviewer_*.deb
 
 # config files
+/mariadb-backups-conf.sh
 /teacher-wacom-conf.sh
 
 # lock files

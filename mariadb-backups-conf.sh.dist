@@ -1,0 +1,7 @@
+#!/bin/bash
+
+backups_directory="~/mariadb-backups"
+login="foo"
+password="123"
+server="localhost"
+
