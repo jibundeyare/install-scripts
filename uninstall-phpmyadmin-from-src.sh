@@ -65,7 +65,8 @@ sudo rm /etc/apache2/conf-available/phpmyadmin.conf
 echo "DROP DATABASE IF EXISTS phpmyadmin;" | sudo mysql
 
 # remove phpmyadmin database administrator account
-echo "DROP USER IF EXISTS $dba_username;" | sudo mysql
+echo "DROP USER IF EXISTS '$dba_username'@'localhost';" | sudo mysql
+echo "DROP USER IF EXISTS 'pma'@'localhost';" | sudo mysql
 echo "FLUSH PRIVILEGES;" | sudo mysql
 
 # remove phpmyadmin temporary working directory
