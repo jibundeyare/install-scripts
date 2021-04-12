@@ -89,25 +89,28 @@ sudo apt install -y apache2
 # install mariadb (previously mysql)
 sudo apt install -y mariadb-client mariadb-server
 
-# install php7.4
-sudo apt install -y imagemagick libapache2-mod-php7.4 php7.4 php7.4-cli php7.4-common php7.4-curl php7.4-fpm php7.4-gd php7.4-imagick php7.4-json php7.4-mbstring php7.4-mysql php7.4-opcache php7.4-phpdbg php7.4-readline php7.4-soap php7.4-xml php7.4-xmlrpc php7.4-zip
+# set phpX.Y version
+php_version="7.4"
 
-# configure php7.4
+# install phpX.Y
+sudo apt install -y imagemagick libapache2-mod-php$php_version php$php_version php$php_version-cli php$php_version-common php$php_version-curl php$php_version-fpm php$php_version-gd php$php_version-imagick php$php_version-json php$php_version-mbstring php$php_version-mysql php$php_version-opcache php$php_version-phpdbg php$php_version-readline php$php_version-soap php$php_version-xml php$php_version-xmlrpc php$php_version-zip
 
-# php7.4 configuration must be done once for each file
-# /etc/php/7.4/apache2/php.ini
-# /etc/php/7.4/cli/php.ini
-# /etc/php/7.4/fpm/php.ini
+# configure phpX.Y
+
+# phpX.Y configuration must be done once for each file
+# /etc/php/X.Y/apache2/php.ini
+# /etc/php/X.Y/cli/php.ini
+# /etc/php/X.Y/fpm/php.ini
 
 # backup current config
-if [ ! -f /etc/php/7.4/apache2/php.ini.orig ]; then
-	sudo mv /etc/php/7.4/apache2/php.ini /etc/php/7.4/apache2/php.ini.orig
+if [ ! -f /etc/php/$php_version/apache2/php.ini.orig ]; then
+	sudo mv /etc/php/$php_version/apache2/php.ini /etc/php/$php_version/apache2/php.ini.orig
 fi
-if [ ! -f /etc/php/7.4/cli/php.ini.orig ]; then
-	sudo mv /etc/php/7.4/cli/php.ini /etc/php/7.4/cli/php.ini.orig
+if [ ! -f /etc/php/$php_version/cli/php.ini.orig ]; then
+	sudo mv /etc/php/$php_version/cli/php.ini /etc/php/$php_version/cli/php.ini.orig
 fi
-if [ ! -f /etc/php/7.4/fpm/php.ini.orig ]; then
-	sudo mv /etc/php/7.4/fpm/php.ini /etc/php/7.4/fpm/php.ini.orig
+if [ ! -f /etc/php/$php_version/fpm/php.ini.orig ]; then
+	sudo mv /etc/php/$php_version/fpm/php.ini /etc/php/$php_version/fpm/php.ini.orig
 fi
 
 # configure time zone, log size, form upload max data size and form upload max data size
@@ -117,9 +120,9 @@ fi
 # post_max_size = 32M
 #
 # copy template-*-php.ini to php directory
-sudo cp template-apache2-php.ini /etc/php/7.4/apache2/php.ini
-sudo cp template-cli-php.ini /etc/php/7.4/cli/php.ini
-sudo cp template-fpm-php.ini /etc/php/7.4/fpm/php.ini
+sudo cp template-apache2-php.ini /etc/php/$php_version/apache2/php.ini
+sudo cp template-cli-php.ini /etc/php/$php_version/cli/php.ini
+sudo cp template-fpm-php.ini /etc/php/$php_version/fpm/php.ini
 
 # configure apache2
 
@@ -129,12 +132,12 @@ sudo a2enmod setenvif
 sudo a2enmod rewrite
 
 # disable php mod
-sudo a2dismod php7.4
+sudo a2dismod php$php_version
 sudo a2dismod mpm_prefork
 
 # enable php fpm
 sudo a2enmod mpm_event
-sudo a2enconf php7.4-fpm
+sudo a2enconf php$php_version-fpm
 sudo a2enmod proxy_fcgi
 
 # backup current config
@@ -152,18 +155,18 @@ sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/apache2.
 # configure php fpm
 
 # backup current config
-if [ ! -f /etc/php/7.4/fpm/pool.d/www.conf.orig ]; then
-	sudo mv /etc/php/7.4/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf.orig
+if [ ! -f /etc/php/$php_version/fpm/pool.d/www.conf.orig ]; then
+	sudo mv /etc/php/$php_version/fpm/pool.d/www.conf /etc/php/$php_version/fpm/pool.d/www.conf.orig
 fi
 
 # copy template-pool.conf to php fpm pool directory
-sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+sudo cp template-pool.conf /etc/php/$php_version/fpm/pool.d/$default_vhost_directory.conf
 
 # edit file to match selected username, projects directory, virtual host directory and local domain name
-sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
-sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{username}/$username/g" /etc/php/$php_version/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/$php_version/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/php/$php_version/fpm/pool.d/$default_vhost_directory.conf
+sudo sed -i "s/{domain}/$domain/g" /etc/php/$php_version/fpm/pool.d/$default_vhost_directory.conf
 
 # configure apache2 virtual host
 
@@ -197,7 +200,7 @@ sudo cp template-index.php /home/$username/$projects_directory/$default_vhost_di
 sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /home/$username/$projects_directory/$default_vhost_directory/index.php
 
 # restart php fpm
-sudo systemctl restart php7.4-fpm.service
+sudo systemctl restart php$php_version-fpm.service
 
 # restart apache2
 sudo systemctl restart apache2.service
