@@ -199,6 +199,11 @@ sudo cp template-index.php /home/$username/$projects_directory/$default_vhost_di
 # edit file to match selected virtual host directory
 sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /home/$username/$projects_directory/$default_vhost_directory/index.php
 
+# set the projects directory permissions
+sudo chown -R $username:$username /home/$username/$projects_directory
+sudo find /home/$username/$projects_directory -type d -exec chmod 755 {} \;
+sudo find /home/$username/$projects_directory -type f -exec chmod 644 {} \;
+
 # restart php fpm
 sudo systemctl restart php$php_version-fpm.service
 
