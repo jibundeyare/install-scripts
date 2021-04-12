@@ -18,7 +18,7 @@ function usage {
 	DOMAIN is the domain name you will be using in your web browser to access a particular project.
 	  This value is also used to set the sender email domain when sending mails
 
-	Example: $this johndoe projects www
+	Example: $this johndoe projects www localhost
 
 	This command will :
 
