@@ -41,6 +41,13 @@ else
 	pma_subdirectory="$3"
 	pma_version="$4"
 
+	grep -i $username /etc/passwd
+
+	if [ "$?" == "1" ]; then
+		echo "error: the username $username does not exists"
+		exit 1
+	fi
+
 	cat <<-EOT
 	USERNAME: $username
 	DBA_USERNAME: $dba_username

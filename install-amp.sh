@@ -38,6 +38,13 @@ else
 	default_vhost_directory="$3"
 	domain="$4"
 
+	grep -i $username /etc/passwd
+
+	if [ "$?" == "1" ]; then
+		echo "error: the username $username does not exists"
+		exit 1
+	fi
+
 	cat <<-EOT
 	USERNAME: $username
 	PROJECTS_DIRECTORY: $projects_directory

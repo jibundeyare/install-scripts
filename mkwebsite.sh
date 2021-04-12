@@ -94,6 +94,13 @@ else
 	vhost_directory="$3"
 	domain="$4"
 
+	grep -i $username /etc/passwd
+
+	if [ "$?" == "1" ]; then
+		echo "error: the username $username does not exists"
+		exit 1
+	fi
+
 	if [ $# -gt 4 ]; then
 		vhost_template="$5"
 
