@@ -65,17 +65,16 @@ else
 	fi
 fi
 
-# check if pwgen is installed
-if ! [ -x "$(command -v pwgen)" ]; then
-	echo "error: pwgen is not installed"
-	echo "use 'apt install pwgen' to install it"
-	exit 1
-fi
-
 # check if phpmyadmin is not already installed
 if [ -d /usr/share/phpmyadmin ]; then
 	echo "error: phpMyAdmin is already installed in directory '/usr/share/phpmyadmin'"
 	exit 1
+fi
+
+# check if pwgen is installed
+if ! [ -x "$(command -v pwgen)" ]; then
+	# pwgen is not installed
+	sudo apt install pwgen
 fi
 
 # download source
