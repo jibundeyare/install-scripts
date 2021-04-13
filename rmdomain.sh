@@ -39,9 +39,6 @@ else
 	fi
 fi
 
-# @dev
-exit
-
 # backup /etc/hosts file
 if [ ! -f /etc/hosts.orig ]; then
 	# backup original hosts file
