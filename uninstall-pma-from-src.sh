@@ -43,6 +43,22 @@ fi
 # set phpX.Y version
 php_version="7.4"
 
+# check that the script is not run as root
+current_id="$(id -nu)"
+
+if [ "$current_id" == "root" ]; then
+	echo "this script should not be run as root"
+	exit 1
+fi
+
+# check that user is a sudoer
+sudo_id=$(sudo id -nu)
+
+if [ "$sudo_id" != "root" ]; then
+	echo "you must be a sudoer to use this script"
+	exit 1
+fi
+
 # check if phpmyadmin was installed from source
 # hide stdout and stderr
 sudo dpkg -l phpmyadmin | grep phpmyadmin > /dev/null 2> /dev/null

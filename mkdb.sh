@@ -54,6 +54,22 @@ else
 	fi
 fi
 
+# check that the script is not run as root
+current_id="$(id -nu)"
+
+if [ "$current_id" == "root" ]; then
+	echo "this script should not be run as root"
+	exit 1
+fi
+
+# check that user is a sudoer
+sudo_id=$(sudo id -nu)
+
+if [ "$sudo_id" != "root" ]; then
+	echo "you must be a sudoer to use this script"
+	exit 1
+fi
+
 # set password
 echo ""
 echo -n "user $app_name's password: "
@@ -69,8 +85,7 @@ if [ "$app_password" != "$app_password2" ]; then
 	exit 1
 fi
 
-echo "enter sudo password if asked"
-echo "then enter mariadb root password (which can be blank)"
+echo "enter mariadb root password (which can be blank)"
 
 # database
 cat <<-EOT |

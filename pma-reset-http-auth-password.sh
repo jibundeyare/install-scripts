@@ -42,6 +42,22 @@ else
 	fi
 fi
 
+# check that the script is not run as root
+current_id="$(id -nu)"
+
+if [ "$current_id" == "root" ]; then
+	echo "this script should not be run as root"
+	exit 1
+fi
+
+# check that user is a sudoer
+sudo_id=$(sudo id -nu)
+
+if [ "$sudo_id" != "root" ]; then
+	echo "you must be a sudoer to use this script"
+	exit 1
+fi
+
 if [ ! -f /etc/phpmyadmin/htpasswd.login ]; then
 	echo "error: the file '/etc/phpmyadmin/htpasswd.login' does not exist."
 	echo "use './install-phpmyadmin-from-src.sh' to install it"
