@@ -78,6 +78,9 @@ elif [ "$distribution" == "ubuntu" ]; then
 
 	# add custom php repo
 	sudo add-apt-repository ppa:ondrej/php
+	# add custom apache2 repo
+	# @info this repo is advised by ppa:ondrej/php
+	sudo add-apt-repository ppa:ondrej/apache2
 else
 	# distribution is not debian nor ubuntu
 	echo "error: this script supports debian or ubuntu only"
