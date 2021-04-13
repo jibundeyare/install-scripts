@@ -52,5 +52,5 @@ else
 fi
 
 # add domain name to /etc/hosts file
-sudo sed -i "s/\\(127\\.0\\.0\\.1\\s\\+.*\\)/\\1 $local_domain/" /etc/hosts
+echo "127.0.0.1 $local_domain" | sudo tee -a /etc/hosts > /dev/null
 

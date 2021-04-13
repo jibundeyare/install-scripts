@@ -55,5 +55,5 @@ else
 fi
 
 # remove domain name from /etc/hosts file
-sudo sed -i "s/ $local_domain//" /etc/hosts
+sudo sed -i "/127.0.0.1 $local_domain/d" /etc/hosts
 
