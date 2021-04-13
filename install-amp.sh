@@ -53,7 +53,7 @@ else
 
 	EOT
 
-	read -p "Press [y/Y] to confirm: " -n 1 answer
+	read -p "Press [y/Y] to confirm: " answer
 	echo ""
 
 	if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
