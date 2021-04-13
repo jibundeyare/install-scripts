@@ -36,7 +36,7 @@ function usage {
 	- make the website accessible from the url "http://foo.local"
 	- use the default "template-vhost.conf" for the VHOST_TEMPLATE value
 	- create the Apache2 virtual host file "/etc/apache2/sites-available/foo.conf"
-	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
+	- create the PHP-FPM pool file "/etc/php/X.Y/fpm/pool.d/foo.conf"
 
 	Example 2: $this johndoe projects foo foo.example.com
 
@@ -52,7 +52,7 @@ function usage {
 	- make the website accessible from the url "http://foo.local"
 	- use the template "template-vhost-symfony.conf" for the VHOST_TEMPLATE value
 	- create the Apache2 virtual host file "/etc/apache2/sites-available/example.conf"
-	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
+	- create the PHP-FPM pool file "/etc/php/X.Y/fpm/pool.d/example.conf"
 
 	Example 4: $this johndoe projects foo foo.example.com template-vhost-symfony.conf
 
@@ -69,7 +69,7 @@ function usage {
 	- make the website accessible from the url "http://localhost/foo", "http://example.com/foo" or "http://1.2.3.4/foo" depending on wether you are on a local machine, a vps and if you have a domain name or not.
 	- use the template "template-subdir.conf" for the VHOST_TEMPLATE value
 	- create the Apache2 conf file "/etc/apache2/sites-available/foo.conf"
-	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
+	- create the PHP-FPM pool file "/etc/php/X.Y/fpm/pool.d/foo.conf"
 
 	Example 6: $this johndoe projects foo foo.local template-subdir-symfony.conf
 
@@ -79,7 +79,7 @@ function usage {
 	- make the website accessible from the url "http://localhost/foo", "http://example.com/foo" or "http://1.2.3.4/foo" depending on wether you are on a local machine, a vps and if you have a domain name or not.
 	- use the template "template-subdir-symfony.conf" for the VHOST_TEMPLATE value
 	- create the Apache2 conf file "/etc/apache2/sites-available/example.conf"
-	- create the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/example.conf"
+	- create the PHP-FPM pool file "/etc/php/X.Y/fpm/pool.d/example.conf"
 
 	EOT
 }
@@ -134,6 +134,9 @@ else
 	fi
 fi
 
+# set phpX.Y version
+php_version="7.4"
+
 if [ ! -d /home/$username/$projects_directory ]; then
 	echo "error: the projects directory '/home/$username/$projects_directory' does not exist"
 	exit 1
@@ -146,16 +149,16 @@ sudo mkdir /var/lib/php/sessions/$vhost_directory
 sudo chmod 1733 /var/lib/php/sessions/$vhost_directory
 
 # copy template-pool.conf to php fpm pool directory
-sudo cp template-pool.conf /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo cp template-pool.conf /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
 
 # edit file to match selected username and virtual host directory
-sudo sed -i "s/{username}/$username/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
-sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
-sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
-sudo sed -i "s/{domain}/$domain/g" /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{username}/$username/g" /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$vhost_directory/g" /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
+sudo sed -i "s/{domain}/$domain/g" /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
-sudo systemctl restart php7.4-fpm.service
+sudo systemctl restart php$php_version-fpm.service
 
 # copy template-vhost.conf to apache2 available virtual host directory
 sudo cp $vhost_template /etc/apache2/sites-available/$vhost_directory.conf

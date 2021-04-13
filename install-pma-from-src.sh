@@ -65,6 +65,9 @@ else
 	fi
 fi
 
+# set phpX.Y version
+php_version="7.4"
+
 # check if phpmyadmin is not already installed
 if [ -d /usr/share/phpmyadmin ]; then
 	echo "error: phpMyAdmin is already installed in directory '/usr/share/phpmyadmin'"
@@ -168,13 +171,13 @@ sudo mkdir /var/lib/php/sessions/phpmyadmin
 sudo chmod 1733 /var/lib/php/sessions/phpmyadmin
 
 # copy template-pool.conf to php fpm pool directory
-sudo cp phpmyadmin-pool.conf /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+sudo cp phpmyadmin-pool.conf /etc/php/$php_version/fpm/pool.d/phpmyadmin.conf
 
 # edit file to match selected username
-sudo sed -i "s/{username}/$username/" /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+sudo sed -i "s/{username}/$username/" /etc/php/$php_version/fpm/pool.d/phpmyadmin.conf
 
 # restart php fpm
-sudo systemctl restart php7.4-fpm.service
+sudo systemctl restart php$php_version-fpm.service
 
 # enable phpmyadmin conf
 sudo a2enconf phpmyadmin.conf

@@ -40,6 +40,9 @@ else
 	fi
 fi
 
+# set phpX.Y version
+php_version="7.4"
+
 # check if phpmyadmin was installed from source
 # hide stdout and stderr
 sudo dpkg -l phpmyadmin | grep phpmyadmin > /dev/null 2> /dev/null
@@ -79,7 +82,7 @@ sudo rm -fr /usr/share/phpmyadmin
 sudo rm -fr /etc/phpmyadmin
 
 # remove php fpm pool
-sudo rm /etc/php/7.4/fpm/pool.d/phpmyadmin.conf
+sudo rm /etc/php/$php_version/fpm/pool.d/phpmyadmin.conf
 
 # remove phpmyadmin dedicated php session directory
 sudo rm -r /var/lib/php/sessions/phpmyadmin

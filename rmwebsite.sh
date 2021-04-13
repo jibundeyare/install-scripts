@@ -16,7 +16,7 @@ function usage {
 	This command will:
 
 	- delete the Apache2 vhost file "/etc/apache2/sites-available/foo.conf"
-	- delete the PHP-FPM pool file "/etc/php/7.4/fpm/pool.d/foo.conf"
+	- delete the PHP-FPM pool file "/etc/php/X.Y/fpm/pool.d/foo.conf"
 	EOT
 }
 
@@ -41,6 +41,9 @@ else
 	fi
 fi
 
+# set phpX.Y version
+php_version="7.4"
+
 # disable vhost
 sudo a2dissite $vhost_directory
 
@@ -54,10 +57,10 @@ sudo systemctl reload apache2.service
 echo "apache2 reloaded"
 
 # remove pool config from php fpm pool directory
-sudo rm /etc/php/7.4/fpm/pool.d/$vhost_directory.conf
+sudo rm /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
 
 # restart php fpm
-sudo systemctl restart php7.4-fpm.service
+sudo systemctl restart php$php_version-fpm.service
 
 # remove the dedicated php session directory
 sudo rm -r /var/lib/php/sessions/$vhost_directory

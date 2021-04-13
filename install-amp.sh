@@ -87,6 +87,9 @@ else
 	exit 1
 fi
 
+# set phpX.Y version
+php_version="7.4"
+
 # update debian
 sudo apt update
 sudo apt upgrade -y
@@ -96,9 +99,6 @@ sudo apt install -y apache2
 
 # install mariadb (previously mysql)
 sudo apt install -y mariadb-client mariadb-server
-
-# set phpX.Y version
-php_version="7.4"
 
 # install phpX.Y
 sudo apt install -y imagemagick libapache2-mod-php$php_version php$php_version php$php_version-cli php$php_version-common php$php_version-curl php$php_version-fpm php$php_version-gd php$php_version-imagick php$php_version-json php$php_version-mbstring php$php_version-mysql php$php_version-opcache php$php_version-phpdbg php$php_version-readline php$php_version-soap php$php_version-xml php$php_version-xmlrpc php$php_version-zip
