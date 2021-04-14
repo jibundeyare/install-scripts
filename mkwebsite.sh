@@ -141,7 +141,7 @@ php_version="7.4"
 current_id="$(id -nu)"
 
 if [ "$current_id" == "root" ]; then
-	echo "this script should not be run as root"
+	echo "error: this script should not be run as root"
 	exit 1
 fi
 
@@ -149,7 +149,7 @@ fi
 sudo_id=$(sudo id -nu)
 
 if [ "$sudo_id" != "root" ]; then
-	echo "you must be a sudoer to use this script"
+	echo "error: you must be a sudoer to use this script"
 	exit 1
 fi
 
