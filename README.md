@@ -2,6 +2,10 @@
 
 Install and helper scripts for Debian 10 Buster.
 
+## French documentation
+
+French documentation is available here : [README-fr.md](README-fr.md).
+
 ## Description
 
 There are two categories of scripts in this repo:
