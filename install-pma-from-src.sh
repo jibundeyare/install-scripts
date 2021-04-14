@@ -41,7 +41,7 @@ else
 	pma_subdirectory="$3"
 	pma_version="$4"
 
-	grep -i $username /etc/passwd
+	grep -i $username /etc/passwd > /dev/null
 
 	if [ "$?" == "1" ]; then
 		echo "error: the username $username does not exist"
