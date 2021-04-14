@@ -79,7 +79,7 @@ if [ "$sudo_id" != "root" ]; then
 fi
 
 # find which distribution is installed
-distribution="$(awk -F= '/^ID/{print $2}' /etc/os-release)"
+distribution="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
 
 if [ "$distribution" == "debian" ]; then
 	echo "info: you are using debian"
