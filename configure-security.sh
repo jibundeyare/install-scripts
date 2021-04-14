@@ -85,10 +85,11 @@ fi
 
 # ask user for mariadb root password
 echo ""
-echo -n "mariadb root password: "
+echo "mariadb root password"
+echo -n "New password: "
 read -s mariadb_root_password
 echo ""
-echo -n "confirm password: "
+echo -n "Re-type new password: "
 read -s mariadb_root_password2
 echo ""
 echo ""

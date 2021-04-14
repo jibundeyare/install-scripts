@@ -121,10 +121,11 @@ fi
 
 # set password
 echo ""
-echo -n "$dba_username's phpmyadmin password: "
+echo "$dba_username's phpmyadmin password"
+echo -n "New password: "
 read -s password
 echo ""
-echo -n "confirm password: "
+echo -n "Re-type new password: "
 read -s password2
 echo ""
 echo ""
