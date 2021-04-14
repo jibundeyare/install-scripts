@@ -45,7 +45,7 @@ else
 
 	count=$(grep "$username" /etc/passwd | wc -l)
 	if [ $count -eq 0 ]; then
-		echo "error: username '$username' does not exist"
+		echo "error: the username $username does not exist"
 		exit 1
 	fi
 

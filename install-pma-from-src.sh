@@ -44,7 +44,7 @@ else
 	grep -i $username /etc/passwd
 
 	if [ "$?" == "1" ]; then
-		echo "error: the username $username does not exists"
+		echo "error: the username $username does not exist"
 		exit 1
 	fi
 
