@@ -19,7 +19,7 @@ function usage {
 	PMA_SUBDIRECTORY is the sub directory to access phpMyAdmin with your web browser
 	PMA_VERSION is the version of phpMyAdmin you want to install
 
-	Example: $this johndoe dba pma_subdir 5.0.4
+	Example: $this johndoe dba pma-subdir 5.0.4
 
 	This command will:
 
@@ -27,7 +27,7 @@ function usage {
 	- ask for a phpMyAdmin password for phpMyAdmin database administrator "dba"
 	- download source from "https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz"
 	- install phpMyAdmin 5.0.4
-	- make phpMyAdmin accessible with the "http://127.0.0.1/pma_subdir" url
+	- make phpMyAdmin accessible with the "http://127.0.0.1/pma-subdir" url
 	EOT
 }
 
@@ -178,7 +178,7 @@ sudo cp phpmyadmin-apache2.conf /etc/apache2/conf-available/phpmyadmin.conf
 # set sub directory
 # Alias /phpmyadmin /usr/share/phpmyadmin
 # =>
-# Alias /pma_subdir /usr/share/phpmyadmin
+# Alias /pma-subdir /usr/share/phpmyadmin
 sudo sed -i "s/{pma_subdirectory}/$pma_subdirectory/g" /etc/apache2/conf-available/phpmyadmin.conf
 
 # create phpmyadmin dedicated php session directory
