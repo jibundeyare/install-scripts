@@ -125,7 +125,10 @@ sudo cp template-20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 sudo cp template-50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
 
 # enable unattended upgrades
-sudo systemctl status unattended-upgrades.service
+sudo systemctl enable unattended-upgrades.service
+
+# start unattended upgrades
+sudo systemctl start unattended-upgrades.service
 
 # backup current sshd config
 if [ ! -f /etc/ssh/sshd_config.orig ]; then
