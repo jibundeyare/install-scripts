@@ -158,6 +158,13 @@ if [ ! -d /home/$username/$projects_directory ]; then
 	exit 1
 fi
 
+# create virtual host directory if it does not exist
+sudo mkdir -p /home/$username/$projects_directory/$vhost_directory
+
+# set the virtual host directory permissions
+sudo chown $username:$username /home/$username/$projects_directory/$vhost_directory
+sudo chmod 755 /home/$username/$projects_directory/$vhost_directory
+
 # create a dedicated php session directory
 sudo mkdir /var/lib/php/sessions/$vhost_directory
 
