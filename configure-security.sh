@@ -120,7 +120,7 @@ if [ ! -f /etc/apt/apt.conf.d/50unattended-upgrades.orig ]; then
 	sudo mv /etc/apt/apt.conf.d/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades.orig
 fi
 
-# copy unattended config teplate to apt directory
+# copy unattended upgrades config template to apt directory
 sudo cp template-20auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 sudo cp template-50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades
 
