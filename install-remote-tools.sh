@@ -16,6 +16,19 @@ if [ "$sudo_id" != "root" ]; then
 	exit 1
 fi
 
+# find which distribution is installed
+distribution="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
+
+if [ "$distribution" == "debian" ]; then
+	echo "info: you are using debian"
+elif [ "$distribution" == "ubuntu" ]; then
+	echo "info: you are using ubuntu"
+else
+	# distribution is not debian nor ubuntu
+	echo "error: this script supports debian or ubuntu only"
+	exit 1
+fi
+
 # download teamviewer
 if [ ! -f "teamviewer_amd64.deb" ]; then
 	wget "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
@@ -35,7 +48,11 @@ sudo apt install -y ./anydesk_${anydesk_version}_amd64.deb
 
 # disable wayland for teamviewer (and probably anydesk also)
 # @warning this needs a restart of the graphical interface
-sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm3/daemon.conf
+if [ "$distribution" == "debian" ]; then
+	sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm3/daemon.conf
+elif [ "$distribution" == "ubuntu" ]; then
+	sudo sed -i "s/#WaylandEnable=false/WaylandEnable=false/g" /etc/gdm3/custom.conf
+fi
 
 # inform user
 echo "INFO: in order to be able to use teamviewer, wayland has been disabled in favor of xorg"
