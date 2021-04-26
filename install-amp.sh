@@ -83,24 +83,25 @@ distribution="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
 
 if [ "$distribution" == "debian" ]; then
 	echo "info: you are using debian"
+elif [ "$distribution" == "ubuntu" ]; then
+	echo "info: you are using ubuntu"
+else
+	# distribution is not debian nor ubuntu
+	echo "error: this script supports debian or ubuntu only"
+	exit 1
+fi
 
-	# add custom php repo
+# add custom php repo
+if [ "$distribution" == "debian" ]; then
 	# wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 	wget -O php.gpg https://packages.sury.org/php/apt.gpg
 	sudo mv php.gpg /etc/apt/trusted.gpg.d/
 	echo "deb https://packages.sury.org/php/ buster main" | sudo tee /etc/apt/sources.list.d/php.list
 elif [ "$distribution" == "ubuntu" ]; then
-	echo "info: you are using ubuntu"
-
-	# add custom php repo
 	sudo add-apt-repository ppa:ondrej/php
 	# add custom apache2 repo
 	# @info this repo is advised by ppa:ondrej/php
 	sudo add-apt-repository ppa:ondrej/apache2
-else
-	# distribution is not debian nor ubuntu
-	echo "error: this script supports debian or ubuntu only"
-	exit 1
 fi
 
 # set phpX.Y version
