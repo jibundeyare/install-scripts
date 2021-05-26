@@ -232,6 +232,61 @@ Exemple :
 
 Après suppression, l'utilisateur `foo` et la BDD `foo` auront disparu.
 
+## Sauvegarde de toutes les BDD
+
+Le script `mariadb-backups.sh` permet de sauvegarder toutes les BDD (à part quelques BDD système).
+
+Les étapes :
+
+- configurer l'accès à la BDD
+- lancer le script de sauvegarde
+- (optionnel) configurer un cron job (une tâche automatique)
+
+### Configuration des accès
+
+Tout d'abord copiez le template de fichier de config :
+
+    cp mariadb-backups-conf.sh.dist mariadb-backups-conf.sh
+
+Maintenant ouvrez le fichier de config `mariadb-backups-conf.sh` avec votre éditeur de code préféré ou avec :
+
+    nano mariadb-backups-conf.sh
+
+Puis configurez le login et le mot de passe.
+Si nécessaire, adaptez l'adresse du serveur et le répertoire de sauvegarde.
+
+### Sauvegarde de toutes les BDD
+
+Les accès sont configurés, on peut lancer le script :
+
+    ./mariadb-backups.sh
+
+Si tout s'est bien passé, les sauvegardes devraient se trouver dans le dossier `mariadb-backups` de votre home (ou ailleurs si vous avez changé la config).
+
+Chaque sauvegarde est gzippée pour économiser de l'espace et horodatée pour s'y retrouver plus facilement.
+
+### Configuration d'un cron job (une tâche automatique)
+
+Si vous voulez en savoir plus sur les cron jobs, direction Wikipedia : [cron - Wikipedia](https://en.wikipedia.org/wiki/Cron).
+
+Dans un temrinal, lancez la commande suvante :
+
+    crontab -e
+
+Puis, dans l'éditeur de code, ajoutez la ligne suivante :
+
+    # sauvegarder toutes les BDD chaque nuits de samedi au dimanche à 03h00 du matin
+    0 3 * * 6 cd /home/foo/install-scripts && mariadb-backups.sh > /dev/null
+
+Attention : prenez tout de même le soin d'adapter le chemin de votre (remplacez `foo` par votre nom d'utilisateur).
+
+Sauvegardez et, le lundi matin, vérifiez que tout est ok.
+
+Astuce : pour tester plus facilement votre cron job, vous pouvez temporairement ajouter les lignes suivantes qui s'exécute toutes les cinq minutes :
+
+    # @debug sauvegarder toutes les BDD toutes les 5 minutes
+    */5 * * * * cd /home/foo/install-scripts && mariadb-backups.sh > /dev/null
+
 ## L'installation des remote tools
 
 Ce script installe des outils de prise en main de pc à distance.
