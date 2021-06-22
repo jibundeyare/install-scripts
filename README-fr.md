@@ -19,17 +19,31 @@ Vous aurez besoin :
 
 Vérifiez dans le mail qui vous a été envoyé par votre hébérgeur.
 
+Il faudra aussi inventer et conserver les infos suivantes :
+
+- (optionnel) le mot de passe pour le compte admin
+- le mot de passe pour le compte user
+- les deux mots de passe pour PMA
+- le mot de passe root pour Mariadb
+- le numéro du port SSH
+
     # copiez la clé ssh pour le compte admin
     ssh-copy-id mon-admin@mon-vps
 
     # connectez-vous au vps avec le compte admin
     ssh mon-admin@mon-vps
 
-    # créer un compte user
+    # (opionnel) changez le mot de passe du compte admin
+    # si le mot de passe ne s'affiche pas, c'est normal
+    # c'est pour éviter que votre voisin ne le voit
+    # ATTENTION si vous oubliez ce mot de passe c'est vraiment la m...e
+    passwd
+
+    # créez un compte user
     # dans cet exemple, le user s'appelle mon-user
     sudo useradd -m -G sudo -s /bin/bash mon-user
 
-    # choix du mot de passe pour le compte user
+    # choisissez un mot de passe pour le compte user
     # si le mot de passe ne s'affiche pas, c'est normal
     # c'est pour éviter que votre voisin ne le voit
     sudo passwd mon-user
