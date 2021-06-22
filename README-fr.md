@@ -10,6 +10,72 @@ Le code source est accessible ici [https://github.com/jibundeyare/install-script
 
 Et pour la mise à jour un simple `git pull` suffit.
 
+## Les étapes pour déployer un site wordpress « from scrtach »
+
+Vous aurez besoin :
+
+- de l'adresse IP ou du nom de domaine de votre VPS.
+- du nom du compte admin (`root`, `debian`, autre)
+
+Vérifiez dans le mail qui vous a été envoyé par votre hébérgeur.
+
+    # copiez la clé ssh pour le compte admin
+    ssh-copy-id mon-admin@mon-vps
+
+    # connectez-vous au vps avec le compte admin
+    ssh mon-admin@mon-vps
+
+    # créer un compte user
+    # dans cet exemple, le user s'appelle mon-user
+    sudo useradd -m -G sudo -s /bin/bash mon-user
+
+    # choix du mot de passe pour le compte user
+    # si le mot de passe ne s'affiche pas, c'est normal
+    # c'est pour éviter que votre voisin ne le voit
+    sudo passwd mon-user
+
+    # déconnectez-vous du compte admin
+    exit
+
+    # copiez la clé ssh pour le compte user
+    ssh-copy-id mon-user@mon-vps
+
+    # reconnectez-vous avec le compte user
+    ssh mon-user@mon-vps
+
+    # installez la stack AMP et PMA
+    # si vous n'avez pas de nom de domaine ce n'est pas grave, vous pouvez mettre localhost ou n'importe quoi d'autre
+    ./install-amp.sh mon-user projects www localhost
+    ./install-pma-from-src.sh mon-user dba pma_subdir 5.0.4
+
+    # sécurisez le serveur
+    # personnalisez le port (utilisez autre chose que 54321)
+    # attention à ne pas oublier ce numéro de port
+    ./configure-security.sh mon-user 54321
+
+    # installez des certificats SSLet activez le protocole HTTPS
+    # ça ne marche que si vous possédez un nom de domaine
+    ./install-letsencrypt.sh foo@mail.com example.com
+
+À partir d'ici, votre serveur est configuré.
+Il ne vous reste plus qu'à déployer votre site wordpress.
+
+    # créez une BDD pour wordpress
+    # ne jamais utiliser le compte root, phpmyadmin, pma ou dba avec un site wordpress, toujours créer un utilisateur dédié
+    # wordpress est une vraie passoire niveau sécurité
+    ./mkdb.sh wordpress
+
+    # vous pouvez installer vos fichiers dans le dossier ~/projects/www
+
+    # ou vous pouvez créer un dossier dédié
+    mkdir ~/projects/wordpress
+    echo "wordpress ok"
+    # puis créer un vhost et un pool php fpm
+    # si vous avez un nom de domaine
+    ./mkwebsite.sh mon-user projects wordpress example.com
+    # ou si vous n'avez pas de nom de domaine
+    ./mkwebsite.sh mon-user projects wordpress none template-subdir.conf
+
 ## Configuration de la sécurité
 
 Note : vous pouvez utiliser ce script sur votre machine de dev mais il est surtout utile sur votre vps.
