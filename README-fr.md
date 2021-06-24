@@ -332,8 +332,8 @@ Maintenant ouvrez le fichier de config `mariadb-backups-conf.sh` avec votre édi
 
     nano mariadb-backups-conf.sh
 
-Puis configurez le login et le mot de passe.
-Si nécessaire, adaptez l'adresse du serveur et le répertoire de sauvegarde.
+Puis configurez le dossier de sauvegarde ainsi que le login et le mot de passe d'accès à la BDD.
+Si nécessaire, adaptez l'adresse du serveur.
 
 ### Sauvegarde de toutes les BDD
 
@@ -355,8 +355,8 @@ Dans un temrinal, lancez la commande suvante :
 
 Puis, dans l'éditeur de code, ajoutez la ligne suivante :
 
-    # sauvegarder toutes les BDD chaque nuits de samedi au dimanche à 03h00 du matin
-    0 3 * * 6 cd /home/foo/install-scripts && mariadb-backups.sh > /dev/null
+    # sauvegarder toutes les BDD chaque nuit du samedi au dimanche à 03h00 du matin (minute 0, heure 3, jour 6)
+    0 3 * * 6 cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
 
 Attention : prenez tout de même le soin d'adapter le chemin de votre (remplacez `foo` par votre nom d'utilisateur).
 
@@ -365,7 +365,7 @@ Sauvegardez et, le lundi matin, vérifiez que tout est ok.
 Astuce : pour tester plus facilement votre cron job, vous pouvez temporairement ajouter les lignes suivantes qui s'exécute toutes les cinq minutes :
 
     # @debug sauvegarder toutes les BDD toutes les 5 minutes
-    */5 * * * * cd /home/foo/install-scripts && mariadb-backups.sh > /dev/null
+    */5 * * * * cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
 
 ## L'installation des remote tools
 
