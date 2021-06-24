@@ -6,7 +6,9 @@ Le code source est accessible ici [https://github.com/jibundeyare/install-script
 
 ## Installation
 
-    git clone https://github.com/jibundeyare/install-scripts.git
+```bash
+git clone https://github.com/jibundeyare/install-scripts.git
+```
 
 Et pour la mise à jour un simple `git pull` suffit.
 
@@ -27,68 +29,72 @@ Il faudra aussi inventer et conserver les infos suivantes :
 - le mot de passe root pour Mariadb
 - le numéro du port SSH
 
-    # copiez la clé ssh pour le compte admin
-    ssh-copy-id mon-admin@mon-vps
+```bash
+# copiez la clé ssh pour le compte admin
+ssh-copy-id mon-admin@mon-vps
 
-    # connectez-vous au vps avec le compte admin
-    ssh mon-admin@mon-vps
+# connectez-vous au vps avec le compte admin
+ssh mon-admin@mon-vps
 
-    # (opionnel) changez le mot de passe du compte admin
-    # si le mot de passe ne s'affiche pas, c'est normal
-    # c'est pour éviter que votre voisin ne le voit
-    # ATTENTION si vous oubliez ce mot de passe c'est vraiment la m...e
-    passwd
+# (opionnel) changez le mot de passe du compte admin
+# si le mot de passe ne s'affiche pas, c'est normal
+# c'est pour éviter que votre voisin ne le voit
+# ATTENTION si vous oubliez ce mot de passe c'est vraiment la m...e
+passwd
 
-    # créez un compte user
-    # dans cet exemple, le user s'appelle mon-user
-    sudo useradd -m -G sudo -s /bin/bash mon-user
+# créez un compte user
+# dans cet exemple, le user s'appelle mon-user
+sudo useradd -m -G sudo -s /bin/bash mon-user
 
-    # choisissez un mot de passe pour le compte user
-    # si le mot de passe ne s'affiche pas, c'est normal
-    # c'est pour éviter que votre voisin ne le voit
-    sudo passwd mon-user
+# choisissez un mot de passe pour le compte user
+# si le mot de passe ne s'affiche pas, c'est normal
+# c'est pour éviter que votre voisin ne le voit
+sudo passwd mon-user
 
-    # déconnectez-vous du compte admin
-    exit
+# déconnectez-vous du compte admin
+exit
 
-    # copiez la clé ssh pour le compte user
-    ssh-copy-id mon-user@mon-vps
+# copiez la clé ssh pour le compte user
+ssh-copy-id mon-user@mon-vps
 
-    # reconnectez-vous avec le compte user
-    ssh mon-user@mon-vps
+# reconnectez-vous avec le compte user
+ssh mon-user@mon-vps
 
-    # installez la stack AMP et PMA
-    # si vous n'avez pas de nom de domaine ce n'est pas grave, vous pouvez mettre localhost ou n'importe quoi d'autre
-    ./install-amp.sh mon-user projects www localhost
-    ./install-pma-from-src.sh mon-user dba pma_subdir 5.0.4
+# installez la stack AMP et PMA
+# si vous n'avez pas de nom de domaine ce n'est pas grave, vous pouvez mettre localhost ou n'importe quoi d'autre
+./install-amp.sh mon-user projects www localhost
+./install-pma-from-src.sh mon-user dba pma_subdir 5.0.4
 
-    # sécurisez le serveur
-    # personnalisez le port (utilisez autre chose que 54321)
-    # attention à ne pas oublier ce numéro de port
-    ./configure-security.sh mon-user 54321
+# sécurisez le serveur
+# personnalisez le port (utilisez autre chose que 54321)
+# attention à ne pas oublier ce numéro de port
+./configure-security.sh mon-user 54321
 
-    # installez des certificats SSLet activez le protocole HTTPS
-    # ça ne marche que si vous possédez un nom de domaine
-    ./install-letsencrypt.sh foo@mail.com example.com
+# installez des certificats SSLet activez le protocole HTTPS
+# ça ne marche que si vous possédez un nom de domaine
+./install-letsencrypt.sh foo@mail.com example.com
+```
 
 À partir d'ici, votre serveur est configuré.
 Il ne vous reste plus qu'à déployer votre site wordpress.
 
-    # créez une BDD pour wordpress
-    # ne jamais utiliser le compte root, phpmyadmin, pma ou dba avec un site wordpress, toujours créer un utilisateur dédié
-    # wordpress est une vraie passoire niveau sécurité
-    ./mkdb.sh wordpress
+```bash
+# créez une BDD pour wordpress
+# ne jamais utiliser le compte root, phpmyadmin, pma ou dba avec un site wordpress, toujours créer un utilisateur dédié
+# wordpress est une vraie passoire niveau sécurité
+./mkdb.sh wordpress
 
-    # vous pouvez installer vos fichiers dans le dossier ~/projects/www
+# vous pouvez installer vos fichiers dans le dossier ~/projects/www
 
-    # ou vous pouvez créer un dossier dédié
-    mkdir ~/projects/wordpress
-    echo "wordpress ok"
-    # puis créer un vhost et un pool php fpm
-    # si vous avez un nom de domaine
-    ./mkwebsite.sh mon-user projects wordpress example.com
-    # ou si vous n'avez pas de nom de domaine
-    ./mkwebsite.sh mon-user projects wordpress none template-subdir.conf
+# ou vous pouvez créer un dossier dédié
+mkdir ~/projects/wordpress
+echo "wordpress ok"
+# puis créer un vhost et un pool php fpm
+# si vous avez un nom de domaine
+./mkwebsite.sh mon-user projects wordpress example.com
+# ou si vous n'avez pas de nom de domaine
+./mkwebsite.sh mon-user projects wordpress none template-subdir.conf
+```
 
 ## Configuration de la sécurité
 
@@ -106,13 +112,17 @@ Attention : avant d'utiliser ce script, vérifiez que vous avez bien un accès �
 
 La configuration :
 
-    ./configure-security.sh [nom-utilisateur] [port-ssh]
+```bash
+./configure-security.sh [nom-utilisateur] [port-ssh]
+```
 
 Pour le numéro de port, choisissez un nombre entre `49152` et `65535`.
 
 Exemple :
 
-    ./configure-security.sh johndoe 54321
+```bash
+./configure-security.sh johndoe 54321
+```
 
 Pour plus d'informations sur ssh, veuillez consulter [ssh.md](ssh.md).
 Pour plus d'informations sur fail2ban, veuillez consulter la section « Sécurisation avec fail2ban » de [admin-sys.md](admin-sys.md).
@@ -130,11 +140,15 @@ Les processus apache et php-fpm seroint démarrés avec le compte utilisateur.
 
 L'installation :
 
-    ./install-amp.sh [nom-utilisateur] [dossier-projets] [site-web-par-défaut] [nom-de-domaine]
+```bash
+./install-amp.sh [nom-utilisateur] [dossier-projets] [site-web-par-défaut] [nom-de-domaine]
+```
 
 Exemple :
 
-    ./install-amp.sh johndoe projects www localhost
+```bash
+./install-amp.sh johndoe projects www localhost
+```
 
 ## Installation de phpMyAdmin (pma)
 
@@ -150,11 +164,15 @@ Il crée aussi un compte d'administrateur de BDD pour éviter d'utiliser le comp
 
 L'installation :
 
-    ./install-pma-from-src.sh [nom-utilisateur] [administrateur-bdd] [sous-dossier-pma] [version-pma]
+```bash
+./install-pma-from-src.sh [nom-utilisateur] [administrateur-bdd] [sous-dossier-pma] [version-pma]
+```
 
 Exemple :
 
-    ./install-pma-from-src.sh johndoe dba pma_subdir 5.0.2
+```bash
+./install-pma-from-src.sh johndoe dba pma_subdir 5.0.2
+```
 
 Après cette installation, pma devient accessible depuis l'url `http://[nom-domaine]/pma_subdir`.
 Sur votre machine de dev cela donne [http://localhost/pma_subdir](http://localhost/pma_subdir) ou [http://127.0.0.1/pma_subdir](http://127.0.0.1/pma_subdir).
@@ -166,11 +184,15 @@ Ce script permet de resetter ce mot de passe.
 
 Le reset :
 
-    ./pma-reset-http-auth-password.sh [administrateur-bdd]
+```bash
+./pma-reset-http-auth-password.sh [administrateur-bdd]
+```
 
 Exemple :
 
-    ./pma-reset-http-auth-password.sh dba
+```bash
+./pma-reset-http-auth-password.sh dba
+```
 
 ## Création d'un site web
 
@@ -193,11 +215,15 @@ Ce script crée une BDD et un nouvel utilisateur qui portent le même nom.
 
 La création :
 
-    ./mkdb [nom-appplication]
+```bash
+./mkdb [nom-appplication]
+```
 
 Exemple :
 
-    ./mkdb foo
+```bash
+./mkdb foo
+```
 
 Après la commande, je pourrai utiliser la BDD `foo` et y accéder avec l'utilisateur `foo`.
 
@@ -208,7 +234,9 @@ Il permet de créer le vhost et le pool php-fpm qui va communiquer avec apache.
 
 La création :
 
-    ./mkwebsite.sh [nom-utilisateur] [dossier-projets] [dossier-projet] [nom-domaine] [template-vhost]
+```bash
+./mkwebsite.sh [nom-utilisateur] [dossier-projets] [dossier-projet] [nom-domaine] [template-vhost]
+```
 
 Le dernier paramètre est optionnel.
 Si aucun paramètre n'est spécifié, c'est le template par défaut qui est choisi.
@@ -218,13 +246,17 @@ Note : le paramètre `[nom-domaine]` est ignoré si un template de vhost du type
 
 Exemple sur un vps :
 
-    ./mkwebsite.sh johndoe projects foo foo.com
+```bash
+./mkwebsite.sh johndoe projects foo foo.com
+```
 
 Après la création, le site web est accessible depuis l'url [http://foo.com](http://foo.com).
 
 Exemple en local :
 
-    ./mkwebsite.sh johndoe projects foo foo.local
+```bash
+./mkwebsite.sh johndoe projects foo foo.local
+```
 
 Après la création, le site web est accessible depuis l'url [http://foo.local](http://foo.local).
 
@@ -259,11 +291,15 @@ Ce script ajoute un nom de domaine associé à l'adresse `127.0.0.1` dans votre 
 
 La création :
 
-    ./mkdomain.sh [nom-domaine]
+```bash
+./mkdomain.sh [nom-domaine]
+```
 
 Exemple :
 
-    ./mkdomain.sh foo.local
+```bash
+./mkdomain.sh foo.local
+```
 
 Après la création, le site web est accessible depuis l'url [http://foo.local](http://foo.local).
 
@@ -277,11 +313,15 @@ Attention : pas nécessaire sur votre VPS.
 
 La suppression :
 
-    ./rmdomain.sh [nom-domaine]
+```bash
+./rmdomain.sh [nom-domaine]
+```
 
 Exemple :
 
-    ./rmdomain.sh foo.local
+```bash
+./rmdomain.sh foo.local
+```
 
 ### Suppression d'un vhost et d'un pool php-fpm associé
 
@@ -289,11 +329,15 @@ Attention : ce script ne supprime aucun fichier du dossier des projets, vous ne 
 
 La suppression :
 
-    ./rmwebsite.sh [dossier-projet]
+```bash
+./rmwebsite.sh [dossier-projet]
+```
 
 Exemple :
 
-    ./rmwebsite.sh foo
+```bash
+./rmwebsite.sh foo
+```
 
 Après suppression, le site web du dossier `foo` ne sera plus accesible (mais les fichiers seront toujours là).
 
@@ -304,11 +348,15 @@ Attention : par contre, le script de suppression de BDD supprime définitivement
 
 La suppression :
 
-    ./rmdb.sh [dossier-projet]
+```bash
+./rmdb.sh [dossier-projet]
+```
 
 Exemple :
 
-    ./rmdb.sh foo
+```bash
+./rmdb.sh foo
+```
 
 Après suppression, l'utilisateur `foo` et la BDD `foo` auront disparu.
 
@@ -326,11 +374,15 @@ Les étapes :
 
 Tout d'abord copiez le template de fichier de config :
 
-    cp mariadb-backups-conf.sh.dist mariadb-backups-conf.sh
+```bash
+cp mariadb-backups-conf.sh.dist mariadb-backups-conf.sh
+```
 
 Maintenant ouvrez le fichier de config `mariadb-backups-conf.sh` avec votre éditeur de code préféré ou avec :
 
-    nano mariadb-backups-conf.sh
+```bash
+nano mariadb-backups-conf.sh
+```
 
 Puis configurez le dossier de sauvegarde ainsi que le login et le mot de passe d'accès à la BDD.
 Si nécessaire, adaptez l'adresse du serveur.
@@ -339,7 +391,9 @@ Si nécessaire, adaptez l'adresse du serveur.
 
 Les accès sont configurés, on peut lancer le script :
 
-    ./mariadb-backups.sh
+```bash
+./mariadb-backups.sh
+```
 
 Si tout s'est bien passé, les sauvegardes devraient se trouver dans le dossier `mariadb-backups` de votre home (ou ailleurs si vous avez changé la config).
 
@@ -351,12 +405,16 @@ Si vous voulez en savoir plus sur les cron jobs, direction Wikipedia : [cron - W
 
 Dans un temrinal, lancez la commande suvante :
 
-    crontab -e
+```bash
+crontab -e
+```
 
 Puis, dans l'éditeur de code, ajoutez la ligne suivante :
 
-    # sauvegarder toutes les BDD chaque nuit du samedi au dimanche à 03h00 du matin (minute 0, heure 3, jour 6)
-    0 3 * * 6 cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
+```
+# sauvegarder toutes les BDD chaque nuit du samedi au dimanche à 03h00 du matin (minute 0, heure 3, jour 6)
+0 3 * * 6 cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
+```
 
 Attention : prenez tout de même le soin d'adapter le chemin de votre (remplacez `foo` par votre nom d'utilisateur).
 
@@ -364,8 +422,10 @@ Sauvegardez et, le lundi matin, vérifiez que tout est ok.
 
 Astuce : pour tester plus facilement votre cron job, vous pouvez temporairement ajouter les lignes suivantes qui s'exécute toutes les cinq minutes :
 
-    # @debug sauvegarder toutes les BDD toutes les 5 minutes
-    */5 * * * * cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
+```
+# @debug sauvegarder toutes les BDD toutes les 5 minutes
+*/5 * * * * cd /home/foo/install-scripts && ./mariadb-backups.sh > /dev/null
+```
 
 ## L'installation des remote tools
 
@@ -381,7 +441,9 @@ Cela est nécessaire pour que teamviewer et anydesk puissent afficher l'écran d
 
 L'installation :
 
-    ./install-remote-tools.sh
+```bash
+./install-remote-tools.sh
+```
 
 ## L'installation des teacher tools
 
@@ -397,13 +459,19 @@ Il installe :
 
 L'installation :
 
-    ./install-teacher-tools.sh
+```bash
+./install-teacher-tools.sh
+```
 
 L'activation des options de thème pour formateur :
 
-    ./teacher-theme-enable.sh
+```bash
+./teacher-theme-enable.sh
+```
 
 La désactivation des options de thème pour formateur :
 
-    ./teacher-theme-disable.sh
+```bash
+./teacher-theme-disable.sh
+```
 
