@@ -193,6 +193,7 @@ sudo systemctl reload apache2.service
 
 # inform user
 echo "apache2 reloaded"
+echo ""
 
 # warn user that he has to create the website directory by himself
 echo "WARNING This script does not create the website directory."
