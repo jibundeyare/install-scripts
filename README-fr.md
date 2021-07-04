@@ -12,7 +12,7 @@ git clone https://github.com/jibundeyare/install-scripts.git
 
 Et pour la mise à jour un simple `git pull` suffit.
 
-## Les étapes pour déployer un site wordpress « from scrtach »
+## Les étapes pour déployer un site wordpress « from scratch »
 
 Vous aurez besoin :
 
