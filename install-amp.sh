@@ -170,12 +170,19 @@ if [ ! -f /etc/apache2/apache2.conf.orig ]; then
 	sudo mv /etc/apache2/apache2.conf /etc/apache2/apache2.conf.orig
 fi
 
+if [ ! -f /etc/apache2/conf-available/security.conf.orig ]; then
+	sudo mv /etc/apache2/conf-available/security.conf /etc/apache2/conf-available/security.conf.orig
+fi
+
 # copy template-apache2.conf to apache2 directory
 sudo cp template-apache2.conf /etc/apache2/apache2.conf
 
 # edit file to match selected username and projects directory
 sudo sed -i "s/{username}/$username/g" /etc/apache2/apache2.conf
 sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/apache2.conf
+
+# copy template-apache2-security.conf to apache2 directory
+sudo cp template-apache2-security.conf /etc/apache2/conf-available/security.conf
 
 # configure php fpm
 
