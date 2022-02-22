@@ -96,7 +96,7 @@ if [ "$distribution" == "debian" ]; then
 	# wget -q https://packages.sury.org/php/apt.gpg -O- | sudo apt-key add -
 	wget -O php.gpg https://packages.sury.org/php/apt.gpg
 	sudo mv php.gpg /etc/apt/trusted.gpg.d/
-	echo "deb https://packages.sury.org/php/ buster main" | sudo tee /etc/apt/sources.list.d/php.list
+	echo "deb https://packages.sury.org/php/ bullseye main" | sudo tee /etc/apt/sources.list.d/php.list
 elif [ "$distribution" == "ubuntu" ]; then
 	sudo add-apt-repository ppa:ondrej/php
 	# add custom apache2 repo
@@ -105,7 +105,7 @@ elif [ "$distribution" == "ubuntu" ]; then
 fi
 
 # set phpX.Y version
-php_version="7.4"
+php_version="8.1"
 
 # update debian
 sudo apt update
@@ -118,7 +118,7 @@ sudo apt install -y apache2
 sudo apt install -y mariadb-client mariadb-server
 
 # install phpX.Y
-sudo apt install -y imagemagick libapache2-mod-php$php_version php$php_version php$php_version-cli php$php_version-common php$php_version-curl php$php_version-fpm php$php_version-gd php$php_version-imagick php$php_version-json php$php_version-mbstring php$php_version-mysql php$php_version-opcache php$php_version-phpdbg php$php_version-readline php$php_version-soap php$php_version-xml php$php_version-xmlrpc php$php_version-zip
+sudo apt install -y imagemagick libapache2-mod-php$php_version php$php_version php$php_version-cli php$php_version-common php$php_version-curl php$php_version-fpm php$php_version-gd php$php_version-imagick php$php_version-mbstring php$php_version-mysql php$php_version-opcache php$php_version-phpdbg php$php_version-readline php$php_version-soap php$php_version-xml php$php_version-xmlrpc php$php_version-zip
 
 # configure phpX.Y
 
