@@ -75,7 +75,7 @@ sudo a2disconf phpmyadmin.conf
 sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 reloaded"
+echo "INFO: apache2 has been reloaded"
 
 # remove phpmyadmin apache configuration file
 sudo rm /etc/apache2/conf-available/phpmyadmin.conf

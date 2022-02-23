@@ -243,5 +243,5 @@ sudo systemctl restart php$php_version-fpm.service
 sudo systemctl restart apache2.service
 
 # inform user
-echo "apache2 restarted"
+echo "INFO: apache2 has been reloaded"
 

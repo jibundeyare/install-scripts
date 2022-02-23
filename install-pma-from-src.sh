@@ -203,7 +203,7 @@ sudo a2enconf phpmyadmin.conf
 sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 reloaded"
+echo "INFO: apache2 has been reloaded"
 
 # create phpmyadmin tables
 sudo mariadb < /usr/share/phpmyadmin/sql/create_tables.sql
