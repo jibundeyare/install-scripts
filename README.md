@@ -45,13 +45,28 @@ These scripts come with no warranty at all.
 These scripts are meant to work with Debian 11 Bullseye.
 But they have not been thouroughly tested so use it at your own risk.
 
+## Install
+
+Clone the repo in your home directory:
+
+    cd ~
+    git clone https://github.com/jibundeyare/install-scripts
+
 ## Usage
 
-Just run any script without any parameter and it will display a help screen.
+Go to the install scripts directory and start using the scripts.
+
+For example:
+
+    cd ~/install-scripts
+    ./install-nvm.sh
+    ./install-pip.sh
+
+Some scripts will display a help screen if you run them without any parameters.
 Choose the parameters value with care.
 
-If you stick to posix characters (`a-zA-Z0-9_-.`) you'll be safe.
-Avoid spaces and other specials characters.
+Remeber that if you stick to posix characters (`a-zA-Z0-9_-.`) you'll be safe.
+Avoid spaces and other specials characters when choosing usernames, database names, etc.
 
 ## FAQ
 
