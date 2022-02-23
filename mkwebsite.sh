@@ -192,11 +192,11 @@ sudo a2ensite $vhost_directory.conf
 sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 reloaded"
+echo "INFO: apache2 has been reloaded"
 echo ""
 
 # warn user that he has to create the website directory by himself
-echo "WARNING This script does not create the website directory."
+echo "WARNING: This script does not create the website directory."
 echo "To create the website directory, use this command:"
 echo ""
 echo "    mkdir /home/$username/$projects_directory/$vhost_directory"

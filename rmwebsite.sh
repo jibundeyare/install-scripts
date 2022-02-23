@@ -70,7 +70,7 @@ sudo rm /etc/apache2/sites-available/$vhost_directory.conf
 sudo systemctl reload apache2.service
 
 # inform user
-echo "apache2 reloaded"
+echo "INFO: apache2 has been reloaded"
 
 # remove pool config from php fpm pool directory
 sudo rm /etc/php/$php_version/fpm/pool.d/$vhost_directory.conf
