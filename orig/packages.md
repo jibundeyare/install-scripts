@@ -8,3 +8,5 @@ Packages :
 - php ^8.1
 - phpmyadmin 5.1.3
 
+The original file for template `phpmyadmin.config.inc.php` is in `phpMyAdmin-x.y.z-all-languages.tar.gz/phpMyAdmin-x.y.z-all-languages.tar.gz/config.sample.inc.php`.
+
