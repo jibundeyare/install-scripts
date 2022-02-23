@@ -38,7 +38,7 @@ fi
 sudo apt install -y ./teamviewer_amd64.deb
 
 # download anydesk
-anydesk_version="6.0.1-1"
+anydesk_version="6.1.1-1"
 if [ ! -f "anydesk_${anydesk_version}_amd64.deb" ]; then
 	wget "https://download.anydesk.com/linux/anydesk_${anydesk_version}_amd64.deb"
 fi
