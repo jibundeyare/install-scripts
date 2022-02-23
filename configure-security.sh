@@ -101,11 +101,25 @@ fi
 
 # secure mariadb installation
 sudo mariadb <<-EOT
-UPDATE mysql.user SET Password=PASSWORD('$mariadb_root_password') WHERE User='root';
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+-- Enable unix_socket authentication
+-- UPDATE mysql.global_priv SET priv=json_set(priv, '$.password_last_changed', UNIX_TIMESTAMP(), '$.plugin', 'mysql_native_password', '$.authentication_string', 'invalid', '$.auth_or', json_array(json_object(), json_object('plugin', 'unix_socket'))) WHERE User='root';
+
+-- Set root password
+UPDATE mysql.global_priv SET priv=json_set(priv, '$.plugin', 'mysql_native_password', '$.authentication_string', PASSWORD('$mariadb_root_password')) WHERE User='root';
+
+-- Remove anonymous users
+DELETE FROM mysql.global_priv WHERE User='';
+
+-- Disallow root login remotely
+DELETE FROM mysql.global_priv WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
+
+-- Dropping test database
 DROP DATABASE IF EXISTS test;
+
+-- Removing privileges on test database
 DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
+
+-- Reload privilege tables
 FLUSH PRIVILEGES;
 EOT
 
