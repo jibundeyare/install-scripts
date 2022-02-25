@@ -111,7 +111,7 @@ UPDATE mysql.global_priv SET priv=json_set(priv, '$.plugin', 'mysql_native_passw
 DELETE FROM mysql.global_priv WHERE User='';
 
 -- Disallow root login remotely
-DELETE FROM mysql.global_priv WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')
+DELETE FROM mysql.global_priv WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
 -- Dropping test database
 DROP DATABASE IF EXISTS test;
