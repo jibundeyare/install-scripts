@@ -20,9 +20,9 @@ fi
 distribution="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
 
 if [ "$distribution" == "debian" ]; then
-	echo "info: you are using debian"
+	echo "INFO: you are using debian"
 elif [ "$distribution" == "ubuntu" ]; then
-	echo "info: you are using ubuntu"
+	echo "INFO: you are using ubuntu"
 else
 	# distribution is not debian nor ubuntu
 	echo "error: this script supports debian or ubuntu only"
