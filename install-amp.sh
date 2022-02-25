@@ -98,10 +98,10 @@ if [ "$distribution" == "debian" ]; then
 	sudo mv php.gpg /etc/apt/trusted.gpg.d/
 	echo "deb https://packages.sury.org/php/ bullseye main" | sudo tee /etc/apt/sources.list.d/php.list
 elif [ "$distribution" == "ubuntu" ]; then
-	sudo add-apt-repository ppa:ondrej/php
+	sudo add-apt-repository -y ppa:ondrej/php
 	# add custom apache2 repo
 	# @info this repo is advised by ppa:ondrej/php
-	sudo add-apt-repository ppa:ondrej/apache2
+	sudo add-apt-repository -y ppa:ondrej/apache2
 fi
 
 # set phpX.Y version
