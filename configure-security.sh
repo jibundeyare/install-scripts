@@ -83,6 +83,19 @@ if [ "$sudo_id" != "root" ]; then
 	exit 1
 fi
 
+# find which distribution is installed
+distribution="$(awk -F= '/^ID=/{print $2}' /etc/os-release)"
+
+if [ "$distribution" == "debian" ]; then
+	echo "INFO: you are using debian"
+elif [ "$distribution" == "ubuntu" ]; then
+	echo "INFO: you are using ubuntu"
+else
+	# distribution is not debian nor ubuntu
+	echo "error: this script supports debian or ubuntu only"
+	exit 1
+fi
+
 # ask user for mariadb root password
 echo ""
 echo "mariadb root password"
@@ -100,7 +113,8 @@ if [ "$mariadb_root_password" != "$mariadb_root_password" ]; then
 fi
 
 # secure mariadb installation
-sudo mariadb <<-EOT
+if [ "$distribution" == "debian" ]; then
+	sudo mariadb <<-EOT
 -- Enable unix_socket authentication
 -- UPDATE mysql.global_priv SET priv=json_set(priv, '$.password_last_changed', UNIX_TIMESTAMP(), '$.plugin', 'mysql_native_password', '$.authentication_string', 'invalid', '$.auth_or', json_array(json_object(), json_object('plugin', 'unix_socket'))) WHERE User='root';
 
@@ -122,6 +136,27 @@ DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
 -- Reload privilege tables
 FLUSH PRIVILEGES;
 EOT
+elif [ "$distribution" == "ubuntu" ]; then
+	sudo mariadb <<-EOT
+-- Set root password
+UPDATE mysql.user SET Password=PASSWORD('$mariadb_root_password') WHERE User='root';
+
+-- Remove anonymous users
+DELETE FROM mysql.user WHERE User='';
+
+-- Disallow root login remotely
+DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+
+-- Dropping test database
+DROP DATABASE IF EXISTS test;
+
+-- Removing privileges on test database
+DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
+
+-- Reload privilege tables
+FLUSH PRIVILEGES;
+EOT
+fi
 
 # install unattended upgrades
 sudo apt-get install -y unattended-upgrades
