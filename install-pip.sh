@@ -16,6 +16,6 @@ if [ "$sudo_id" != "root" ]; then
 	exit 1
 fi
 
-sudo apt install -y python-dev python-pip
 sudo apt install -y python3-dev python3-pip python3-venv
+sudo ln -s python3 /usr/bin/python
 
