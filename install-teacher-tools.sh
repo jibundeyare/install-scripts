@@ -1,5 +1,19 @@
 #!/bin/bash
 
+echo "This script installs the following tools:"
+echo "- gromit mpx"
+echo "- obs studio"
+echo "- gnome bDMZ cursor theme"
+echo ""
+echo "Are you sure you want to continue?"
+read -p "Press [y/Y] to confirm: " answer
+echo ""
+
+if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+	echo "canceled"
+	exit
+fi
+
 # check that the script is not run as root
 current_id="$(id -nu)"
 

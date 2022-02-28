@@ -1,5 +1,16 @@
 #!/bin/bash
 
+echo "This script installs pip (the python package manager)"
+echo ""
+echo "Are you sure you want to continue?"
+read -p "Press [y/Y] to confirm: " answer
+echo ""
+
+if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+	echo "canceled"
+	exit
+fi
+
 # check that the script is not run as root
 current_id="$(id -nu)"
 

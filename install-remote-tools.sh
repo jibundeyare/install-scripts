@@ -1,5 +1,21 @@
 #!/bin/bash
 
+echo "This script installs the following tools:"
+echo "- teamviewer"
+echo "- anydesk"
+echo ""
+echo "WARNING: note that teamviewer (and probably anydesk also) only works with xorg (and not wayland)."
+echo "Thus, wayland will be disabled in favor of xorg."
+echo ""
+echo "Are you sure you want to continue?"
+read -p "Press [y/Y] to confirm: " answer
+echo ""
+
+if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
+	echo "canceled"
+	exit
+fi
+
 # check that the script is not run as root
 current_id="$(id -nu)"
 
