@@ -96,6 +96,16 @@ echo "wordpress ok"
 ./mkwebsite.sh mon-user projects wordpress none template-subdir.conf
 ```
 
+### Dernières étapes si vous utilisez `wp-cli`
+
+Pensez à adapter les paramètres avant de lancer les commandes (`--dbname`, `--dbuser`, `--dbpass`, etc) :
+
+```bash
+wp core download --locale=fr_FR
+wp config create --dbname=wordpress --dbuser=wordpress --dbpass=123 --locale=fr_FR
+wp core install --url=example.com --title=Wordpress --admin_user=admin --admin_password=123 --admin_email=admin@example.com
+```
+
 ## Configuration de la sécurité
 
 Note : vous pouvez utiliser ce script sur votre machine de dev mais il est surtout utile sur votre vps.
