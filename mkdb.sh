@@ -7,6 +7,9 @@ function usage {
 
 	This script creates a new database and a new database user.
 	It will ask you to set a password for the user.
+	Then it grants all privileges on the database to the user.
+	It will also grants all privileges on a database with suffix '_test'.
+	This feature is usefull with Symfony.
 
 	APP_NAME is the application name. It will be used to name the database and the user.
 
@@ -93,6 +96,7 @@ CREATE DATABASE $app_name DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_
 CREATE USER '$app_name'@'localhost';
 GRANT USAGE ON *.* TO '$app_name'@'localhost' IDENTIFIED BY '$app_password';
 GRANT ALL PRIVILEGES ON $app_name.* TO '$app_name'@'localhost';
+GRANT ALL PRIVILEGES ON ${app_name}_test.* TO '$app_name'@'localhost';
 FLUSH PRIVILEGES;
 EOT
 sudo mysql -p

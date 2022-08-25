@@ -76,6 +76,7 @@ echo "enter mariadb root password (which can be blank)"
 cat <<-EOT |
 DROP USER '$app_name'@'localhost';
 DROP DATABASE $app_name;
+DROP DATABASE IF EXISTS ${app_name}_test;
 FLUSH PRIVILEGES;
 EOT
 sudo mysql -p
