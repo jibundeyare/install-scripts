@@ -202,19 +202,20 @@ sudo sed -i "s/{domain}/$domain/g" /etc/php/$php_version/fpm/pool.d/$default_vho
 
 # configure apache2 virtual host
 
-# backup current config
-if [ ! -f /etc/apache2/sites-available/000-default.conf.orig ]; then
-	sudo mv /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf.orig
-fi
-
-# copy template-000-default.conf to apache2 available virtual host directory
-sudo cp template-000-default.conf /etc/apache2/sites-available/000-default.conf
+# copy template-default-website.conf to apache2 available virtual host directory
+sudo cp template-default-website.conf /etc/apache2/sites-available/$default_vhost_directory.conf
 
 # edit file to match selected username, projects directory, virtual host directory and local domain name
-sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/000-default.conf
-sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/000-default.conf
-sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/apache2/sites-available/000-default.conf
-sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/000-default.conf
+sudo sed -i "s/{username}/$username/g" /etc/apache2/sites-available/$default_vhost_directory.conf
+sudo sed -i "s/{projects_directory}/$projects_directory/g" /etc/apache2/sites-available/$default_vhost_directory.conf
+sudo sed -i "s/{vhost_directory}/$default_vhost_directory/g" /etc/apache2/sites-available/$default_vhost_directory.conf
+sudo sed -i "s/{domain}/$domain/g" /etc/apache2/sites-available/$default_vhost_directory.conf
+
+# remove symbolic link pointing to /etc/apache2/sites-available/000-default.conf
+sudo rm /etc/apache2/sites-enabled/000-default.conf
+
+# create symbolic link pointing to the default website vhost
+sudo ln -s ../sites-available/$default_vhost_directory.conf /etc/apache2/sites-enabled/000-default.conf
 
 # create default virtual host dedicated php session directory
 sudo mkdir /var/lib/php/sessions/$default_vhost_directory
