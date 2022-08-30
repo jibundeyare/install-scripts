@@ -15,6 +15,14 @@ function usage {
 
 	- make the website foo the default website
 
+	Example 2: $this www
+
+	This command will:
+
+	- reset the website www as the default one
+
+	NOTICE : use the command 'ls /etc/apache2/sites-available' to see the list of all websites.
+
 	EOT
 }
 
