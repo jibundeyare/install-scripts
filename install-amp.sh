@@ -237,6 +237,10 @@ sudo chown -R $username:$username /home/$username/$projects_directory
 sudo find /home/$username/$projects_directory -type d -exec chmod 755 {} \;
 sudo find /home/$username/$projects_directory -type f -exec chmod 644 {} \;
 
+# set the user home directory permissions
+# enable directory search for everyone
+sudo chmod 751 /home/$username
+
 # restart php fpm
 sudo systemctl restart php$php_version-fpm.service
 
