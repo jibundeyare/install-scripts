@@ -42,7 +42,7 @@ else
 fi
 
 # set phpX.Y version
-php_version="8.2"
+php_version="8.1"
 
 # check that the script is not run as root
 current_id="$(id -nu)"
