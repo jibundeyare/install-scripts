@@ -105,7 +105,7 @@ elif [ "$distribution" == "ubuntu" ]; then
 fi
 
 # set phpX.Y version
-php_version="8.1"
+php_version="8.2"
 
 # update debian
 sudo apt update
