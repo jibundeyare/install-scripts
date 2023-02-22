@@ -8,6 +8,6 @@ websites=$(ls -1 /etc/apache2/sites-enabled)
 if [ -z "$websites" ]; then
 	echo "no websites"
 else
-	echo $websites
+	ls /etc/apache2/sites-enabled
 fi
 
